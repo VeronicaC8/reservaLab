@@ -1,0 +1,189 @@
+<resources>
+    <string name="app_name">reservaLab</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+
+    --Definir sus Menus aqui--
+    <string name="title_activity_asignatura_menu">AsignaturaMenuActivity</string>
+
+
+    --fin de Menus--
+
+    --Definir sus Activity aqui--
+
+    --CICLO--
+    <string name="title_activity_ciclo_insertar">CicloInsertarActivity</string>
+    <string name="title_activity_ciclo_eliminar">CicloEliminarActivity</string>
+    <string name="title_activity_ciclo_actualizar">CicloActualizarActivity</string>
+    <string name="title_activity_ciclo_consultar">CicloConsultarActivity</string>
+
+    <string name="insertar_registro">Insertar Registro</string>
+    <string name="eliminar_registro">Eliminar Registro</string>
+    <string name="consultar_registro">Consultar Registro</string>
+    <string name="actualizar_registro">Actualizar Registro</string>
+    <string name="numCiclo">Ciclo</string>
+    <string name="anio">Año</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="actualizar">Actualizar</string>
+    <string name="limpiar">Limpiar</string>
+    <string name="ciclo">Ciclo</string>
+    <string name="consultar">Consultar</string>
+    <string name="opciones">Opciones</string>
+    <string name="insertar">Insertar</string>
+    --CICLO--
+
+    --Asignatura--
+    <string name="title_activity_asignatura_insertar">AsignaturaInsertarActivity</string>
+    <string name="title_activity_asignatura_eliminar">AsignaturaEliminarActivity</string>
+    <string name="title_activity_asignatura_actualizar">AsignaturaActualizarActivity</string>
+    <string name="title_activity_asignatura_consultar">AsignaturaConsultarActivity</string>
+    <string name="codMateria">Codigo </string>
+    <string name="nomMateria">Nombre</string>
+    <string name="anio_mat"></string>
+
+    --Asignatura--
+
+
+    --asignacionAsignatura--
+
+    <string name="title_activity_asignacion_asignatura_insertar">AsignaturaInsertarActivity</string>
+    <string name="title_activity_asignacion_asignatura_eliminar">AsignaturaEliminarActivity</string>
+    <string name="title_activity_asignacion_asignatura_actualizar">AsignaturaActualizarActivity</string>
+    <string name="title_activity_asignacion_asignatura_consultar">AsignaturaConsultarActivity</string>
+    <string name="title_activity_asignacion_asignatura_menu"></string>
+    <string name="codigo_materia">Codigo </string>
+    <string name="nombre_materia">Nombre</string>
+    <string name="Laboratorio">Laboratorio</string>
+    <string name="idAsignacion">Id </string>
+    <string name="asignacionAsignatura">Asignacion de Asignatura</string>
+
+
+    --asignacionAsignatura--
+
+
+    --Reservacion--
+    <string name="title_activity_reservacion_insertar">ReservacionInsertarActivity</string>
+    <string name="title_activity_reservacion_actualizar">ReservacionActualizarActivity</string>
+    <string name="title_activity_reservacion_eliminar">ReservacionEliminarActivity</string>
+    <string name="title_activity_reservacion_consultar">ReservacionConsultarActivity</string>
+    --Reservacion--
+
+    --Tipo Carga--
+    <string name="title_activity_tipo_carga_insertar">TipoCargaInsertarActivity</string>
+    <string name="title_activity_tipo_carga_actualizar">TipoCargaActualizarActivity</string>
+    <string name="title_activity_tipo_carga_eliminar">TipoCargaEliminarActivity</string>
+    <string name="title_activity_tipo_carga_consultar">TipoCargaConsultarActivity</string>
+    --Tipo Carga--
+
+
+    --CARGA--
+    <string name="title_activity_carga_insertar">TipoCargaInsertarActivity</string>
+    <string name="title_activity_carga_actualizar">TipoCargaActualizarActivity</string>
+    <string name="title_activity_carga_eliminar">TipoCargaEliminarActivity</string>
+    <string name="title_activity_carga_consultar">TipoCargaConsultarActivity</string>
+    ---CARGA--
+
+    --Menu Activity para Profesor--
+    <string name="title_activity_profesor_menu">ProfesorMenuActivity</string>
+    <string name="title_activity_profesor_insertar">ProfesorInsertarActivity</string>
+    <string name="title_activity_profesor_eliminar">ProfesorEliminarActivity</string>
+    <string name="title_activity_profesor_actualizar">ProfesorActualizarActivity</string>
+    <string name="title_activity_profesor_consultar">ProfesorConsultarActivity</string>
+
+
+    --Menu Activity para Asignacion de Carga--
+    <string name="title_activity_asignacion_carga_menu">AsignacionCargaMenuActivity</string>
+    <string name="title_activity_asignacion_carga_insertar">AsignacionCargaInsertarActivity</string>
+    <string name="title_activity_asignacion_carga_eliminar">AsignacionCargaEliminarActivity</string>
+    <string name="title_activity_asignacion_carga_actualizar">AsignacionCargaActualizarActivity</string>
+    <string name="title_activity_asignacion_carga_consultar">AsignacionCargaConsultarActivity</string>
+
+
+    --Menu Activity para Tipo de Computo--
+    <string name="title_activity_tipo_computo_menu">TipoComputoMenuActivity</string>
+    <string name="title_activity_tipo_computo_insertar">TipoComputoInsertarActivity</string>
+    <string name="title_activity_tipo_computo_eliminar">TipoComputoaEliminarActivity</string>
+    <string name="title_activity_tipo_computo_actualizar">TipoComputoActualizarActivity</string>
+    <string name="title_activity_tipo_computo_consultar">TipoComputoConsultarActivity</string>
+    <string name="tipo_computo_menu">Función a Ejecutar Tipo Computo</string>
+    --fin de Activity--
+
+
+    <string name="tipocarga_menu">Función a Ejecutar Reservacion</string>
+    <string name="profesor_menu">Función a Ejecutar Profesor</string>
+    <string name="asignacion_carga_menu">Función a Ejecutar Asignacion Carga</string>
+
+
+    <string name="idAsignacionCarga">id Asignacion Carga</string>
+    <string name="codigoAsignatura">codigo de Asignatura</string>
+    <string name="idCiclo">id de Ciclo</string>
+
+    <string name="idProfesor">id de Profesor</string>
+    <string name="nombreProfesor">nombre de profesor</string>
+    <string name="idUsuario">id de Usuario</string>
+
+    <string name="idTipoComputo">id Tipo Computo</string>
+    <string name="codLaboratorio">Codigo de Laboratorio</string>
+    <string name="nombreTipo">Nombre tipo de Computo</string>
+    <string name="especificacionTecnica">Especificacion Tecnica</string>
+
+    <string name="Limpiar">Limpiar</string>
+    --Usuario--
+    <string name="title_activity_usuario_insertar">UsuarioInsertarActivity</string>
+    <string name="title_activity_usuario_actualizar">UsuarioActualizarActivity</string>
+    <string name="title_activity_usuario_eliminar">UsuarioEliminarActivity</string>
+    <string name="title_activity_usuario_consultar">UsuarioConsultarActivity</string>
+    <string name="idusuario">Idusuario</string>
+    <string name="usuario">Usuario</string>
+    <string name="contrasena">Contrana</string>
+    <string name="tipoUsuario">TipoUsuario</string>
+    <string name="txTipo">TxTipo</string>
+    <string name="ciclo_menu">Función a Ejecutar Ciclo</string>
+    <string name="alumno_menu">Función a Ejecutar Asignatura</string>
+    <string name="reservacion_menu">Función a Ejecutar Reservacion</string>
+    <string name="title_activity_dia_menu">LaboratorioMenuActivity</string>
+    <string name="title_activity_horario_menu">HorarioMenuActivity</string>
+    <string name="title_activity_laboratorio_menu">LaboratorioMenuActivity</string>
+
+    <string name="title_activity_dia_insertar">DiaInsertarActivity</string>
+    <string name="title_activity_dia_eliminar">DiaEliminarActivity</string>
+    <string name="title_activity_dia_actualizar">DiaActualizarActivity</string>
+    <string name="title_activity_dia_consultar">DiaConsultarActivity</string>
+
+    <string name="title_activity_horario_insertar">HorarioInsertarActivity</string>
+    <string name="title_activity_horario_eliminar">HorarioEliminarActivity</string>
+    <string name="title_activity_horario_actualizar">HorarioActualizarActivity</string>
+    <string name="title_activity_horario_consultar">HorarioConsultarActivity</string>
+
+    <string name="title_activity_laboratorio_insertar">LaboratorioInsertarActivity</string>
+    <string name="title_activity_laboratorio_eliminar">LaboratorioEliminarActivity</string>
+    <string name="title_activity_laboratorio_actualizar">LaboratorioActualizarActivity</string>
+    <string name="title_activity_laboratorio_consultar">LaboratorioConsultarActivity</string>
+
+
+    <string name="dia_menu">Funcion a Ejecutar Dias</string>
+    <string name="horario_menu">Funcion a Ejecutar Horario</string>
+    <string name="laboratorio_menu">Funcion a Ejecutar Laboratorio</string>
+
+
+    <string name="Consultar_registro">Consultar Registro</string>
+
+    <string name="iddia">Id Dia</string>
+    <string name="nomdia">Nombre Dia</string>
+
+    <string name="idhorario">id Horario</string>
+    <string name="horainicio">Hora Inicio</string>
+    <string name="horafin">Hora Fin</string>
+
+    <string name="codlaboratorio">Codigo Laboratorio</string>
+    <string name="plantalaboratorio">Ubicado en Planta</string>
+    <string name="cantidadequiposlaboratorio">Cantidad de equipos</string>
+
+
+    <string name="idtipocomputo">Id Tipo de Computo</string>
+
+
+
+
+</resources>

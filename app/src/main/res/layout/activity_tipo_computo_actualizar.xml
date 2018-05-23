@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dip"
+    android:stretchColumns="1" >
+    <TableRow>
+        <TextView android:text="@string/idTipoComputo" />
+        <EditText
+            android:id="@+id/editIdTipoComputo"
+            android:inputType="number"
+            android:maxLength="5" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="@string/codLaboratorio" />
+        <EditText
+            android:id="@+id/editCodLaboratorio"
+            android:inputType="text"
+            android:maxLength="10" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="@string/nombreTipo" />
+        <EditText
+            android:id="@+id/editNombreTipo"
+            android:inputType="text"
+            android:maxLength="10" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="@string/especificacionTecnica" />
+        <EditText
+            android:id="@+id/editEspecificacionTecnica"
+            android:inputType="text"
+            android:maxLength="10" />
+    </TableRow>
+    <TableRow>
+        <Button
+            android:onClick="actualizarTipoComputo"
+            android:text="@string/actualizar_registro" />
+    </TableRow>
+    <TableRow>
+        <Button
+            android:onClick="limpiarTexto"
+            android:text="@string/Limpiar" />
+    </TableRow>
+</TableLayout>

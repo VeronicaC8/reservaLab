@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.oscar.reservalab">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".AsignaturaActualizarActivity" />
+        <activity android:name=".AsignaturaEliminarActivity" />
+        <activity android:name=".AsignaturaInsertarActivity" />
+        <activity android:name=".AsignaturaMenuActivity" />
+        <activity android:name=".CicloMenuActivity" />
+        <activity android:name=".CicloInsertarActivity" />
+        <activity android:name=".CicloEliminarActivity" />
+        <activity android:name=".CicloActualizarActivity" />
+        <activity android:name=".CicloConsultarActivity" />
+        <activity android:name=".ReservacionMenuActivity" />
+        <activity android:name=".ReservacionInsertarActivity" />
+        <activity android:name=".ReservacionActualizarActivity" />
+        <activity android:name=".ReservacionEliminarActivity" />
+        <activity android:name=".ReservacionConsultarActivity" />
+        <activity android:name=".TipoCargaMenuActivity" />
+        <activity android:name=".TipoCargaActualizarActivity" />
+        <activity android:name=".TipoCargaInsertarActivity" />
+        <activity android:name=".TipoCargaEliminarActivity" />
+        <activity android:name=".TipoCargaConsultarActivity" />
+        <activity android:name=".CargaMenuActivity" />
+        <activity android:name=".CargaActualizarActivity" />
+        <activity android:name=".CargaInsertarActivity" />
+        <activity android:name=".CargaEliminarActivity" />
+        <activity android:name=".CargaConsultarActivity" />
+        <activity android:name=".ProfesorMenuActivity" />
+        <activity android:name=".ProfesorInsertarActivity" />
+        <activity android:name=".ProfesorEliminarActivity" />
+        <activity android:name=".ProfesorActualizarActivity" />
+        <activity android:name=".AsignacionCargaMenuActivity" />
+        <activity android:name=".AsignacionCargaInsertarActivity" />
+        <activity android:name=".AsignacionCargaEliminarActivity" />
+        <activity android:name=".AsignacionCargaActualizarActivity" />
+        <activity android:name=".AsignacionCargaConsultarActivity" />
+        <activity android:name=".ProfesorConsultarActivity" />
+        <activity android:name=".UsuarioCrearActivity" />
+        <activity android:name=".UsuarioEliminarActivity" />
+        <activity android:name=".UsuarioActualizarActivity" />
+        <activity android:name=".UsuarioConsultarActivity" />
+        <activity android:name=".UsuarioMenuActivity" />
+        <activity android:name=".TipoComputoInsertarActivity" />
+        <activity android:name=".TipoComputoEliminarActivity" />
+        <activity android:name=".TipoComputoConsultarActivity" />
+        <activity android:name=".TipoComputoActualizarActivity" />
+        <activity android:name=".TipoComputoMenuActivity" />
+        <activity android:name=".AsignaturaConsultarActivity" />
+        <activity android:name=".asignacionAsignaturaMenuActivity" />
+        <activity android:name=".asignacionAsignaturaIngresarActivity" />
+        <activity android:name=".asignacionAsignaturaActualizarActivity" />
+        <activity android:name=".asignacionAsignaturaEliminarActivity" />
+        <activity android:name=".asignacionAsignaturaConsultarActivity" />
+        <activity android:name=".LaboratorioMenuActivity" />
+        <activity android:name=".LaboratorioInsertarActivity" />
+        <activity android:name=".LaboratorioEliminarActivity" />
+        <activity android:name=".LaboratorioActualizarActivity" />
+        <activity android:name=".LaboratorioConsultarActivity" />
+        <activity android:name=".HorarioConsultarActivity" />
+        <activity android:name=".HorarioEliminarActivity" />
+        <activity android:name=".HorarioInsertarActivity" />
+        <activity android:name=".HorarioActualizarActivity" />
+        <activity android:name=".HorarioMenuActivity" />
+        <activity android:name=".DiaMenuActivity" />
+        <activity android:name=".DiaActualizarActivity" />
+        <activity android:name=".DiaConsultarActivity" />
+        <activity android:name=".DiaEliminarActivity" />
+        <activity android:name=".DiaInsertarActivity" />
+        <activity android:name=".Main2Activity" />
+        <activity android:name=".LoginActivity"></activity>
+    </application>
+
+</manifest>
