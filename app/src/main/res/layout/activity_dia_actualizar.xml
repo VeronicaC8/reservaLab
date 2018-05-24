@@ -5,14 +5,14 @@
     android:paddingTop="10dip"
     android:stretchColumns="1" >
     <TableRow>
-        <TextView android:text="@string/iddia" />
+        <TextView android:text="@string/idDia" />
         <EditText
             android:id="@+id/editIdDia"
             android:inputType="number"
             android:maxLength="2" />
     </TableRow>
     <TableRow>
-        <TextView android:text="@string/nomdia" />
+        <TextView android:text="@string/nomDia" />
         <EditText
             android:id="@+id/editNomDia"
             android:inputType="text"

@@ -124,7 +124,6 @@
     <string name="idUsuario">id de Usuario</string>
 
     <string name="idTipoComputo">id Tipo Computo</string>
-    <string name="codLaboratorio">Codigo de Laboratorio</string>
     <string name="nombreTipo">Nombre tipo de Computo</string>
     <string name="especificacionTecnica">Especificacion Tecnica</string>
 
@@ -142,7 +141,7 @@
     <string name="ciclo_menu">Función a Ejecutar Ciclo</string>
     <string name="alumno_menu">Función a Ejecutar Asignatura</string>
     <string name="reservacion_menu">Función a Ejecutar Reservacion</string>
-    <string name="title_activity_dia_menu">LaboratorioMenuActivity</string>
+    <string name="title_activity_dia_menu">DiaMenuActivity</string>
     <string name="title_activity_horario_menu">HorarioMenuActivity</string>
     <string name="title_activity_laboratorio_menu">LaboratorioMenuActivity</string>
 
@@ -169,19 +168,17 @@
 
     <string name="Consultar_registro">Consultar Registro</string>
 
-    <string name="iddia">Id Dia</string>
-    <string name="nomdia">Nombre Dia</string>
+    <string name="idDia">Id Dia</string>
+    <string name="nomDia">Nombre Dia</string>
 
-    <string name="idhorario">id Horario</string>
-    <string name="horainicio">Hora Inicio</string>
-    <string name="horafin">Hora Fin</string>
+    <string name="idHorario">id Horario</string>
+    <string name="horaInicio">Hora Inicio</string>
+    <string name="horaFin">Hora Fin</string>
 
-    <string name="codlaboratorio">Codigo Laboratorio</string>
+    <string name="codLaboratorio">Codigo Laboratorio</string>
     <string name="plantalaboratorio">Ubicado en Planta</string>
     <string name="cantidadequiposlaboratorio">Cantidad de equipos</string>
 
-
-    <string name="idtipocomputo">Id Tipo de Computo</string>
 
 
 

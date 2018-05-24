@@ -10,12 +10,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class HorarioMenuActivity extends ListActivity {
-    String[] menu={"Consultar Registro"};
-    String[]
-            activities={"HorarioConsultarActivity"};
+    String[] menu={"Consultar Registro","Insertar Horario"};
+    String[] activities={"HorarioConsultarActivity","HorarioInsertarActivity"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,menu));
 
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,menu);
         setListAdapter(adapter);
@@ -23,11 +23,9 @@ public class HorarioMenuActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id){
         super.onListItemClick(l,v,position,id);
-
         String nombreValue=activities[position];
-
         try{
-            Class<?> clase=Class.forName("package com.example.oscar.reservalab;."+nombreValue);
+            Class<?> clase=Class.forName("com.example.oscar.reservalab."+nombreValue);
             Intent inte=new Intent(this,clase);
             this.startActivity(inte);
         }catch(ClassNotFoundException e){

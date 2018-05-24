@@ -30,11 +30,8 @@ public class DiaMenuActivity extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id){
         super.onListItemClick(l,v,position,id);
         String nombreValue=activities[position];
-
-  //      l.getChildAt(position).setBackgroundColor(Color.rgb(128,128,255));
-
         try{
-            Class<?> clase=Class.forName("package com.example.oscar.reservalab;."+nombreValue);
+            Class<?> clase=Class.forName("com.example.oscar.reservalab."+nombreValue);
             Intent inte=new Intent(this,clase);
             this.startActivity(inte);
         }catch(ClassNotFoundException e){

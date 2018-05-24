@@ -38,20 +38,19 @@ public class ControlBDReservacionLab {
     private static final String DROP_TABLE4 = "DROP TABLE IF EXISTS reservacion; ";
     private static final String DROP_TABLE5 = "DROP TABLE IF EXISTS tipoCarga; ";
     private static final String DROP_TABLE6 = "DROP TABLE IF EXISTS carga; ";
-    private static final String DROP_TABLE7="DROP TABLE IF EXISTS profesor;";
-    private static final String DROP_TABLE8="DROP TABLE IF EXISTS asignacionCarga;";
-    private static final String DROP_TABLE9="DROP TABLE IF EXISTS tipoComputo;";
+    private static final String DROP_TABLE7 = "DROP TABLE IF EXISTS profesor;";
+    private static final String DROP_TABLE8 = "DROP TABLE IF EXISTS asignacionCarga;";
+    private static final String DROP_TABLE9 = "DROP TABLE IF EXISTS tipoComputo;";
     private static final String DROP_TABLE10 ="DROP TABLE IF EXISTS usuario; ";
     private static final String DROP_TABLE11 ="DROP TABLE IF EXISTS accesoUsuario";
     private static final String DROP_TABLE12 ="DROP TABLE IF EXISTS dia;";
     private static final String DROP_TABLE13 ="DROP TABLE IF EXISTS horario;";
-    private static final String DROP_TABLE14="DROP TABLE IF EXISTS laboratorio;";
+    private static final String DROP_TABLE14 ="DROP TABLE IF EXISTS laboratorio;";
 
 
     public ControlBDReservacionLab(Context ctx) {
         this.context = ctx;
         DBHelper = new DatabaseHelper(context);
-
     }
 
 
@@ -72,7 +71,7 @@ public class ControlBDReservacionLab {
                 db.execSQL("CREATE TABLE asignatura(codigoAsignatura VARCHAR(10) NOT NULL PRIMARY KEY, nombreAsignatura VARCHAR(30) NOT NULL, idCiclo INTEGER NOT NULL);");
                 db.execSQL("CREATE TABLE ciclo(idCiclo Integer NOT NULL PRIMARY KEY, numCiclo Integer NOT NULL, anio Integer NOT NULL);");
                 db.execSQL("CREATE TABLE asignacionAsignatura(idAsignacionAsignatura INTEGER NOT NULL PRIMARY KEY, codLaboratorio VARCHAR(10) NOT NULL, codigoAsignatura VARCHAR(10) NOT NULL);");
-                db.execSQL("CREATE TABLE reservacion(idReservacion VARCHAR(3) NOT NULL PRIMARY KEY, codLaboratorio VARCHAR(10) NOT NULL, idProfesor VARCHAR(10) NOT NULL, idHora VARCHAR(10),idDia VARCHAR(10));");
+                db.execSQL("CREATE TABLE reservacion(idReservacion VARCHAR(3) NOT NULL PRIMARY KEY, codLaboratorio VARCHAR(6) NOT NULL, idProfesor VARCHAR(10) NOT NULL, idHora VARCHAR(10),idDia VARCHAR(10));");
                 db.execSQL("CREATE TABLE tipoCarga(idTipoCarga VARCHAR(3) NOT NULL PRIMARY KEY, nombreTipoCarga VARCHAR(30) NOT NULL);");
                 db.execSQL("CREATE TABLE carga(idCarga VARCHAR(3) NOT NULL PRIMARY KEY, idTipoCarga VARCHAR(10) NOT NULL, codAsignatura VARCHAR(10) NOT NULL, numGrupo INTEGER);");
                 db.execSQL("CREATE TABLE profesor(idprofesor VARCHAR(10) NOT NULL PRIMARY KEY, nombreProfesor VARCHAR(30) NOT NULL,idUsuario VARCHAR(10) NOT NULL,idAsignacionCarga INTEGER NOT NULL);");
@@ -153,10 +152,10 @@ public class ControlBDReservacionLab {
     public String insertar(Dia dia){
         String regInsertados="Registro Insertado No = ";
         long contador=0;
-        ContentValues dias = new ContentValues();
-        dias.put("idDia", dia.getIdDia());
-        dias.put("nomDia",dia.getNomDia());
-        contador=db.insert("dia", null, dias);
+        ContentValues di = new ContentValues();
+        di.put("idDia", dia.getIdDia());
+        di.put("nomDia",dia.getNomDia());
+        contador=db.insert("dia", null, di);
         if(contador==-1 || contador==0)
         {
             regInsertados= "Error al Insertar el registro, Registro Duplicado. Verificar inserción";
@@ -1427,10 +1426,26 @@ public String insertar(AsignacionCarga asignacionCarga) {
         final Integer[] VCnumCico={01,02};
         final Integer[] VCanio={2017, 2018};
 
+        final  Integer[] VHidHorario={1,2,3,4,5,6,7,8};
+        final  String[] VHhoraInicio={"6:20 AM","8:05 AM","9:50 AM","11:35 AM","1:20 PM","3:05 PM","4:50 PM","6:35 PM"};
+        final  String[] VHhoraFin={"8:00 AM","9:45 AM","11:30 AM","1:15 PM","3:00 PM","4:45 PM","6:30 PM","8:15 PM"};
+
+        final  Integer[] VDidDia={1,2,3,4,5};
+        final  String[] VDnomDia={"lunes","martes","miercoles","jueves","viernes"};
+
+        final String[] VLcodLaboratorio={"LCOM-1","LCOM-2","LCOM-3","LCOM-4"};
+        final Integer[] VLidTipoComputo={1,2,3,4};
+        final Integer[] VLplantaLaboratorio={1,1,1,2};
+        final Integer[] VLcantidadEquiposLaboratorio={25,31,16,21};
+
         abrir();
         db.execSQL("DELETE FROM asignatura;");
         db.execSQL("DELETE FROM ciclo;");
         db.execSQL("DELETE FROM usuario;");
+
+        db.execSQL("DELETE FROM horario");
+        db.execSQL("DELETE FROM dia");
+        db.execSQL("DELETE FROM laboratorio;");
 
 
         Asignatura asignatura = new Asignatura();
@@ -1457,25 +1472,6 @@ public String insertar(AsignacionCarga asignacionCarga) {
             us.setIdaccesoUsuario(VidaccesoUsuario[i]);
             insertar(us);
         }
-
-
-
-        final  Integer[] VHidHorario={1,2,3,4,5,6,7,8};
-        final  String[] VHhoraInicio={"6:20 AM","8:05 AM","9:50 AM","11:35 AM","1:20 PM","3:05 PM","4:50 PM","6:35 PM"};
-        final  String[] VHhoraFin={"8:00 AM","9:45 AM","11:30 AM","1:15 PM","3:00 PM","4:45 PM","6:30 PM","8:15 PM"};
-
-        final  Integer[] VDidDia={1,2,3,4,5};
-        final  String[] VDnomDia={"lunes","martes","miercoles","jueves","viernes"};
-
-        final String[] VLcodLaboratorio={"LCOM-1","LCOM-2","LCOM-3","LCOM-4"};
-        final Integer[] VLidTipoComputo={1,2,3,4};
-        final Integer[] VLplantaLaboratorio={1,1,1,2};
-        final Integer[] VLcantidadEquiposLaboratorio={25,31,16,21};
-
-        abrir();
-        db.execSQL("DELETE FROM horario");
-        db.execSQL("DELETE FROM dia");
-        db.execSQL("DELETE FROM laboratorio;");
 
         Horario horario=new Horario();
         for(int i=0;i<4;i++){
