@@ -20,7 +20,10 @@ public class ControlBDReservacionLab {
     private static final String[] camposCarga=new String[] {"idCarga","idTipoCarga",  "codAsignatura","numGrupo"};
     private static final String[] camposProfesor=new String[]{"idProfesor","nombreProfesor","idUsuario","idAsignacionCarga"};
     private static final String[] camposAsignacionCarga=new String[]{"idAsignacionCarga","codigoAsignatura","idCiclo"};
+
+    //Quitar codLaboratorio
     private static final String[] camposTipoComputo=new String[]{"idTipoComputo","codLaboratorio","nombreTipo","especificacionTecnica"};
+
     private static final String[] camposUsuario=new String[] {"idUsuario","usuario", "contrasena", "tipoUsuario"};
     private static final String[] camposAcceso=new String[] {"tipoUsuario","descripcion"};
     private static final String[]camposHorario=new String[]{"idHorario","horaInicio","horaFin"};
@@ -71,12 +74,17 @@ public class ControlBDReservacionLab {
                 db.execSQL("CREATE TABLE asignatura(codigoAsignatura VARCHAR(10) NOT NULL PRIMARY KEY, nombreAsignatura VARCHAR(30) NOT NULL, idCiclo INTEGER NOT NULL);");
                 db.execSQL("CREATE TABLE ciclo(idCiclo Integer NOT NULL PRIMARY KEY, numCiclo Integer NOT NULL, anio Integer NOT NULL);");
                 db.execSQL("CREATE TABLE asignacionAsignatura(idAsignacionAsignatura INTEGER NOT NULL PRIMARY KEY, codLaboratorio VARCHAR(10) NOT NULL, codigoAsignatura VARCHAR(10) NOT NULL);");
+                //dia, hora
                 db.execSQL("CREATE TABLE reservacion(idReservacion VARCHAR(3) NOT NULL PRIMARY KEY, codLaboratorio VARCHAR(6) NOT NULL, idProfesor VARCHAR(10) NOT NULL, idHora VARCHAR(10),idDia VARCHAR(10));");
                 db.execSQL("CREATE TABLE tipoCarga(idTipoCarga VARCHAR(3) NOT NULL PRIMARY KEY, nombreTipoCarga VARCHAR(30) NOT NULL);");
+                //idTipoCarga VARCHAR(3-10)
                 db.execSQL("CREATE TABLE carga(idCarga VARCHAR(3) NOT NULL PRIMARY KEY, idTipoCarga VARCHAR(10) NOT NULL, codAsignatura VARCHAR(10) NOT NULL, numGrupo INTEGER);");
+                //idprofresro idProfesor
                 db.execSQL("CREATE TABLE profesor(idprofesor VARCHAR(10) NOT NULL PRIMARY KEY, nombreProfesor VARCHAR(30) NOT NULL,idUsuario VARCHAR(10) NOT NULL,idAsignacionCarga INTEGER NOT NULL);");
                 db.execSQL("CREATE TABLE asignacionCarga(idAsignacionCarga INTEGER NOT NULL PRIMARY KEY, codigoAsignatura VARCHAR(10) NOT NULL, idCiclo INTEGER NOT NULL);");
+                //Quitar codLaboratorio
                 db.execSQL("CREATE TABLE tipoComputo(idTipoComputo INTEGER NOT NULL PRIMARY KEY, codLaboratorio VARCHAR(10) NOT NULL, nombreTipo VARCHAR(12) NOT NULL,especificacionTecnica VARCHAR(30) NOT NULL);");
+
                 db.execSQL("CREATE TABLE usuario(idUsuario INTEGER NOT NULL PRIMARY KEY, contrasena VARCHAR(8) NOT NULL, usuario VARCHAR(10) NOT NULL,tipoUsuario INTEGER NOT NULL );");
                 db.execSQL("CREATE TABLE accesoUsuario(tipoUsuario INTEGER NOT NULL PRIMARY KEY, descripcion VARCHAR(30) NOT NULL);");
                 db.execSQL("CREATE TABLE horario(idHorario INTEGER NOT NULL PRIMARY KEY, horaInicio VARCHAR(8) NOT NULL, horaFin VARCHAR(8) NOT NULL);");
@@ -322,6 +330,8 @@ public class ControlBDReservacionLab {
             return null;
         }
     }
+    //codLaboratorio VARCHAR(6), idTipoComputo INTEGER, plantaLaboratorio INTEGER, cantidadEquiposLaboratorio INTEGER
+
 
     ///INSERTAR ASIGNATURA
     public String insertar(Asignatura asignatura) {
@@ -1173,7 +1183,7 @@ public String insertar(AsignacionCarga asignacionCarga) {
 
 
             }
-
+/*
             case 6:{ //Verifica que exista la asignacion de asignatura
 
                 asignacionAsignatura  asignacion2 = (asignacionAsignatura)dato;
@@ -1185,6 +1195,7 @@ public String insertar(AsignacionCarga asignacionCarga) {
                 }
                 return false;
             }
+            */
 
             case 7:{
                 //Verificar que exista reservacion
@@ -1433,7 +1444,7 @@ public String insertar(AsignacionCarga asignacionCarga) {
         final  Integer[] VDidDia={1,2,3,4,5};
         final  String[] VDnomDia={"lunes","martes","miercoles","jueves","viernes"};
 
-        final String[] VLcodLaboratorio={"LCOM-1","LCOM-2","LCOM-3","LCOM-4"};
+        final String[] VLcodLaboratorio={"LCOM1","LCOM2","LCOM3","LCOM4"};
         final Integer[] VLidTipoComputo={1,2,3,4};
         final Integer[] VLplantaLaboratorio={1,1,1,2};
         final Integer[] VLcantidadEquiposLaboratorio={25,31,16,21};
