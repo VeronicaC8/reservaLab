@@ -44,8 +44,8 @@ public class ControlBDReservacionLab {
     private static final String DROP_TABLE7 = "DROP TABLE IF EXISTS profesor;";
     private static final String DROP_TABLE8 = "DROP TABLE IF EXISTS asignacionCarga;";
     private static final String DROP_TABLE9 = "DROP TABLE IF EXISTS tipoComputo;";
-    private static final String DROP_TABLE10 ="DROP TABLE IF EXISTS usuario; ";
-    private static final String DROP_TABLE11 ="DROP TABLE IF EXISTS accesoUsuario";
+    private static final String DROP_TABLE10 ="DROP TABLE IF EXISTS usuario;";
+    private static final String DROP_TABLE11 ="DROP TABLE IF EXISTS accesoUsuario;";
     private static final String DROP_TABLE12 ="DROP TABLE IF EXISTS dia;";
     private static final String DROP_TABLE13 ="DROP TABLE IF EXISTS horario;";
     private static final String DROP_TABLE14 ="DROP TABLE IF EXISTS laboratorio;";
@@ -418,7 +418,7 @@ public class ControlBDReservacionLab {
         String regInsertados = "Registro Insertado Nº=";
         long contador = 0;
         //Verificar que no exista usuario
-        if (verificarIntegridad(usuario, 6)) {
+        if (verificarIntegridad(usuario, 19)) {
             regInsertados = "Error al Insertar el registros, Registro Duplicado. Verificar inserción";
 
         } else {
@@ -441,7 +441,7 @@ public class ControlBDReservacionLab {
 
 
     public String actualizar(Usuario usuario){
-        if(verificarIntegridad(usuario,6)){
+        if(verificarIntegridad(usuario,19)){
             String[] id={String.valueOf(usuario.getIdUsuario())};
             ContentValues us = new ContentValues();
             //us.put("idUsuario", usuario.getIdUsuario());
@@ -458,11 +458,12 @@ public class ControlBDReservacionLab {
 
 
     // Eliminar Usuario
+    // Eliminar Usuario
     public String eliminar(Usuario usuario){
 
         String usuAfectados="filas afectadas= ";
         int contador=0;
-        if(verificarIntegridad(usuario, 6)) {
+         if(verificarIntegridad(usuario, 6)) {
             String where="idUsuario='"+usuario.getIdUsuario()+"'";
             contador+=db.delete("usuario", where,null);
             usuAfectados+=contador;
@@ -1197,6 +1198,21 @@ public String insertar(AsignacionCarga asignacionCarga) {
             }
             */
 
+
+            case 6: { //Elimina
+                Usuario usuario = (Usuario)dato;
+                String[] idm = {String.valueOf(usuario.getIdUsuario())};
+                abrir();
+                Cursor cm = db.query("usuario", null, "idUsuario = ?", idm, null,
+                        null, null);
+                if(cm.moveToFirst()){
+                    //Se encontro Materia
+
+                    return true;
+                }
+                else return false;
+            }
+
             case 7:{
                 //Verificar que exista reservacion
                 Reservacion reservacion2 = (Reservacion) dato;
@@ -1476,7 +1492,7 @@ public String insertar(AsignacionCarga asignacionCarga) {
         }
 
         Usuario us = new Usuario();
-        for(int i=0; i<1; i++){
+        for(int i=0; i<2; i++){
             us.setIdUsuario(VIdUsuario[i]);
             us.setUsuario(VUsuario[i]);
             us.setContrasenia(VContrasenia[i]);
