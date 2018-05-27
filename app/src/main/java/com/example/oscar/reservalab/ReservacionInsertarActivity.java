@@ -50,7 +50,7 @@ public class ReservacionInsertarActivity extends Activity{
         idReserva = (EditText) findViewById(R.id.idReservacion);
 
         profesores = new ArrayList<>();
-        profesores = obtenerDia();
+        profesores = obtenerProfesor();
         ArrayAdapter<String> adaptador = new ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,profesores);
         adaptador.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         cProfesor.setAdapter(adaptador);
