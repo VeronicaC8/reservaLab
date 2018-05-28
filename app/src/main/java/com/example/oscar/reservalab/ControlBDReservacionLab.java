@@ -1193,7 +1193,7 @@ public String insertar(AsignacionCarga asignacionCarga) {
                 Cursor c2 = db.query("asignacion_asignatura", null, "idAsignacionAsignatura = ?", id, null, null, null);
                 if(c2.moveToFirst()){ //Se encontro Asignatura
                     return true;
-                }
+                }"codLaboratorio",  "idProfesor","idHora","idDia"
                 return false;
             }
             */
@@ -1217,11 +1217,16 @@ public String insertar(AsignacionCarga asignacionCarga) {
                 //Verificar que exista reservacion
                 Reservacion reservacion2 = (Reservacion) dato;
                 String[] id = {reservacion2.getIdReservacion()};
-                //String[] id2 = {(reservacion2.getIdHorario())}; //Verifica que exista horario
+                String[] id2 = {(reservacion2.getCodLaboratorio())};
+                String[] id3 = {(reservacion2.getIdHora())};
+                String[] id4 = {(reservacion2.getIdDia())}; //Verifica que exista horario
                 abrir();
                 //Cursor c2 = db.query("reservacion", null, "idReservacion = ? && idHorario = ?", id, null, null, null);
                 Cursor c2 = db.query("reservacion", null, "idReservacion = ? ", id, null, null, null);
-                if(c2.moveToFirst()){ //Se encontro reservacion
+                Cursor c3 = db.query("reservacion", null, "codLaboratorio=? ", id2, null, null, null);
+                Cursor c4 = db.query("reservacion", null, " idHora=?", id3, null, null, null);
+                Cursor c5 = db.query("reservacion", null, "idDia=?", id4, null, null, null);
+                if(c2.moveToFirst() &&  c3.moveToFirst()  && c4.moveToFirst()  && c5.moveToFirst()){ //Se encontro reservacion
                     return true; }
                 return false;
             }
@@ -1464,6 +1469,8 @@ public String insertar(AsignacionCarga asignacionCarga) {
         final Integer[] VLidTipoComputo={1,2,3,4};
         final Integer[] VLplantaLaboratorio={1,1,1,2};
         final Integer[] VLcantidadEquiposLaboratorio={25,31,16,21};
+
+
 
         abrir();
         db.execSQL("DELETE FROM asignatura;");

@@ -33,7 +33,7 @@ public class ReservacionActualizarActivity extends Activity {
     ArrayList<String> lLab;//CAMBIAR A CLASE LABORATORIO
     ArrayList<String> lDia;
 
-    @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservacion_actualizar);
@@ -52,19 +52,19 @@ public class ReservacionActualizarActivity extends Activity {
         cProfesor.setAdapter(adaptador);
 
         horarios = new ArrayList<>();
-        horarios = obtenerProfesor();
+        horarios = obtenerHorario();
         ArrayAdapter<String> adaptador2 = new ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,horarios);
         adaptador.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         cHora.setAdapter(adaptador2);
 
         labs = new ArrayList<>();
-        labs= obtenerProfesor();
+        labs= obtenerLaboratorio();
         ArrayAdapter<String> adaptador3 = new ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,labs);
         adaptador.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         cLaboratorio.setAdapter(adaptador3);
 
         dias = new ArrayList<>();
-        dias = obtenerProfesor();
+        dias = obtenerDia();
         ArrayAdapter<String> adaptador4 = new ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,dias);
         adaptador.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         cDia.setAdapter(adaptador4);
@@ -72,9 +72,9 @@ public class ReservacionActualizarActivity extends Activity {
 
     private List obtenerProfesor() {
 
-        String tabla = "tipoCarga";
+        String tabla = "profesor";
         helper.abrir();
-        TipoCarga profesor = null;
+        Profesor profesor = null;
 
         try {
             lProf = new ArrayList<>();
@@ -82,9 +82,9 @@ public class ReservacionActualizarActivity extends Activity {
             Cursor cursor = helper.db.rawQuery("SELECT * FROM " + tabla, null);
 
             while (cursor.moveToNext()) {
-                profesor = new TipoCarga();
-                profesor.setIdTipoCarga(cursor.getString(0));
-                profesor.setNombreTipoCarga(cursor.getString(1));
+                profesor = new Profesor();
+                profesor.setIdProfesor(cursor.getString(0));
+                profesor.setNombreProfesor(cursor.getString(1));
                 lProf.add(cursor.getString(1));
 
             }
@@ -98,9 +98,9 @@ public class ReservacionActualizarActivity extends Activity {
 
     private List obtenerHorario() {
 
-        String tabla = "Dia";
+        String tabla = "horario";
         helper.abrir();
-        TipoCarga horario = null;//CAMBIAR A LA ENTIDAD CORRESPONDIENTE
+        Horario horario = null;//CAMBIAR A LA ENTIDAD CORRESPONDIENTE
 
         try {
             lHorario = new ArrayList<>();
@@ -108,10 +108,11 @@ public class ReservacionActualizarActivity extends Activity {
             Cursor cursor = helper.db.rawQuery("SELECT * FROM " + tabla, null);
 
             while (cursor.moveToNext()) {
-                horario = new TipoCarga();//CAMBIAR A LA ENTIDAD CORRESPONDIENTE
-                horario.setIdTipoCarga(cursor.getString(0));
-                horario.setNombreTipoCarga(cursor.getString(1));
-                lHorario.add(cursor.getString(1));
+                horario = new Horario();//CAMBIAR A LA ENTIDAD CORRESPONDIENTE
+                horario.setHoraInicio(cursor.getString(1));
+                horario.setHoraFin(cursor.getString(2));
+                lHorario.add(cursor.getString(1)+"-"+ cursor.getString(2));
+
 
             }
 
@@ -124,9 +125,9 @@ public class ReservacionActualizarActivity extends Activity {
 
     private List obtenerLaboratorio() {
 
-        String tabla = "Laboratorio";
+        String tabla = "laboratorio";
         helper.abrir();
-        TipoCarga labo = null;//CAMBIAR A LA ENTIDAD CORRESPONDIENTE
+        Laboratorio labo = null;//CAMBIAR A LA ENTIDAD CORRESPONDIENTE
 
         try {
             lLab = new ArrayList<>();
@@ -134,11 +135,9 @@ public class ReservacionActualizarActivity extends Activity {
             Cursor cursor = helper.db.rawQuery("SELECT * FROM " + tabla, null);
 
             while (cursor.moveToNext()) {
-                labo = new TipoCarga(); //CAMBIAR A LA ENTIDAD CORRESPONDIENTE
-                labo.setIdTipoCarga(cursor.getString(0));
-                labo.setNombreTipoCarga(cursor.getString(1));
-
-                lLab.add(cursor.getString(1));
+                labo = new Laboratorio(); //CAMBIAR A LA ENTIDAD CORRESPONDIENTE
+                labo.setCodLaboratorio(cursor.getString(0));
+                lLab.add(cursor.getString(0));
 
             }
 
@@ -152,9 +151,9 @@ public class ReservacionActualizarActivity extends Activity {
 
     private List obtenerDia() {
 
-        String tabla = "Dia";
+        String tabla = "dia";
         helper.abrir();
-        TipoCarga dia = null;
+        Dia dia = null;
 
         try {
             lDia = new ArrayList<>();
@@ -162,9 +161,9 @@ public class ReservacionActualizarActivity extends Activity {
             Cursor cursor = helper.db.rawQuery("SELECT * FROM " + tabla, null);
 
             while (cursor.moveToNext()) {
-                dia = new TipoCarga();
-                dia.setIdTipoCarga(cursor.getString(0));
-                dia.setNombreTipoCarga(cursor.getString(1));
+                dia = new Dia();
+                dia.setIdDia(Integer.parseInt(cursor.getString(0)));
+                dia.setNomDia(cursor.getString(1));
                 lDia.add(cursor.getString(1));
 
             }
@@ -173,7 +172,7 @@ public class ReservacionActualizarActivity extends Activity {
         } catch (Exception ex) {
             Toast.makeText(getBaseContext(), ex.toString(), Toast.LENGTH_SHORT).show();
         }
-        return (lProf);
+        return (lDia);
     }
 
     public void actualizarR(View v) {

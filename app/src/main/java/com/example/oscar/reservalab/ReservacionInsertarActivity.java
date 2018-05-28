@@ -62,7 +62,7 @@ public class ReservacionInsertarActivity extends Activity{
         cHora.setAdapter(adaptador2);
 
         labs = new ArrayList<>();
-        labs= obtenerDia();
+        labs= obtenerLaboratorio();
         ArrayAdapter<String> adaptador3 = new ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,labs);
         adaptador.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         cLaboratorio.setAdapter(adaptador3);
