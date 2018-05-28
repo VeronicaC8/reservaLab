@@ -12,13 +12,6 @@
             android:maxLength="5" />
     </TableRow>
     <TableRow>
-        <TextView android:text="@string/codLaboratorio" />
-        <EditText
-            android:id="@+id/editCodLaboratorio"
-            android:inputType="text"
-            android:maxLength="10" />
-    </TableRow>
-    <TableRow>
         <TextView android:text="@string/nombreTipo" />
         <EditText
             android:id="@+id/editNombreTipo"
