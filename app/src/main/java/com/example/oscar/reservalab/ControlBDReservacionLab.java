@@ -80,10 +80,10 @@ public class ControlBDReservacionLab {
                 //idTipoCarga VARCHAR(3-10)
                 db.execSQL("CREATE TABLE carga(idCarga VARCHAR(3) NOT NULL PRIMARY KEY, idTipoCarga VARCHAR(10) NOT NULL, codAsignatura VARCHAR(10) NOT NULL, numGrupo INTEGER);");
                 //idprofresro idProfesor
-                db.execSQL("CREATE TABLE profesor(idprofesor VARCHAR(10) NOT NULL PRIMARY KEY, nombreProfesor VARCHAR(30) NOT NULL,idUsuario VARCHAR(10) NOT NULL,idAsignacionCarga INTEGER NOT NULL);");
+                db.execSQL("CREATE TABLE profesor(idProfesor VARCHAR(10) NOT NULL PRIMARY KEY, nombreProfesor VARCHAR(30) NOT NULL,idUsuario INTEGER NOT NULL,idAsignacionCarga INTEGER NOT NULL);");
                 db.execSQL("CREATE TABLE asignacionCarga(idAsignacionCarga INTEGER NOT NULL PRIMARY KEY, codigoAsignatura VARCHAR(10) NOT NULL, idCiclo INTEGER NOT NULL);");
                 //Quitar codLaboratorio
-                db.execSQL("CREATE TABLE tipoComputo(idTipoComputo INTEGER NOT NULL PRIMARY KEY, nombreTipo VARCHAR(12) NOT NULL,especificacionTecnica VARCHAR(30) NOT NULL);");
+                db.execSQL("CREATE TABLE tipoComputo(idTipoComputo INTEGER NOT NULL PRIMARY KEY, nombreTipo VARCHAR(30) NOT NULL,especificacionTecnica VARCHAR(70) NOT NULL);");
 
                 db.execSQL("CREATE TABLE usuario(idUsuario INTEGER NOT NULL PRIMARY KEY, contrasena VARCHAR(8) NOT NULL, usuario VARCHAR(10) NOT NULL,tipoUsuario INTEGER NOT NULL );");
                 db.execSQL("CREATE TABLE accesoUsuario(tipoUsuario INTEGER NOT NULL PRIMARY KEY, descripcion VARCHAR(30) NOT NULL);");
@@ -844,12 +844,6 @@ public class ControlBDReservacionLab {
 
 
 
-
-
-
-
-
-
 public String insertar(AsignacionCarga asignacionCarga) {
 
     String regInsertados = "Registro Insertado Nº=";
@@ -903,7 +897,7 @@ public String insertar(AsignacionCarga asignacionCarga) {
     }
     //ACTUALIZAR TIPO COMPUTO
     public String actualizar(TipoComputo tipoComputo){
-        if(verificarIntegridad(tipoComputo,12)){
+        if(verificarIntegridad(tipoComputo,14)){
             String[] id={String.valueOf(tipoComputo.getIdTipoComputo())};
             ContentValues cv = new ContentValues();
 
@@ -1445,6 +1439,21 @@ public String insertar(AsignacionCarga asignacionCarga) {
         final Integer[] VLplantaLaboratorio={1,1,1,2};
         final Integer[] VLcantidadEquiposLaboratorio={25,31,16,21};
 
+        //Variables para TipoComputo
+        final Integer[] VTCidTipoComputo = {1,2,3,4};
+        final String [] VTCnombreTipo ={"Tipo1","Tipo2","Tipo3","Tipo4"};
+        final String [] VTCespecificacionTecnica ={"12 ram,disco de 500 GB, Sistemas Operativos Windows y Ubunto","12 ram,disco de 500 GB, Sistemas Operativos Windows y Ubunto","12 ram,disco de 500 GB, Sistemas Operativos Windows y Ubunto","12 ram,disco de 500 GB, Sistemas Operativos Windows y Ubunto"};
+
+        //Variables para Profesor
+        final String [] VPidProfesor ={"prof1","prof2","prof3","prof4"};
+        final String [] VPnombreProfesor={"Karla","Melissa","Jonathan","Carlos"};
+        final Integer [] VPidUsuario ={1,2,1,2};
+        final Integer [] VPidAsignacionCarga ={1,2,3,4};
+
+        //Variables para AsignacionCarga
+        final Integer [] VACidAsignacionCarga ={1,2,3,4};
+        final String [] VACcodigoAsignatura ={"PRN115", "HDP115", "COS115", "MEP115"};
+        final Integer [] VACidCiclo={1,2,3,4};
 
 
         abrir();
@@ -1455,6 +1464,10 @@ public String insertar(AsignacionCarga asignacionCarga) {
         db.execSQL("DELETE FROM horario");
         db.execSQL("DELETE FROM dia");
         db.execSQL("DELETE FROM laboratorio;");
+
+        db.execSQL("DELETE FROM profesor;");
+        db.execSQL("DELETE FROM asignacionCarga;");
+        db.execSQL("DELETE FROM tipoComputo;");
 
 
         Asignatura asignatura = new Asignatura();
@@ -1506,10 +1519,30 @@ public String insertar(AsignacionCarga asignacionCarga) {
             insertar(laboratorio);
         }
 
+        Profesor profesor = new Profesor();
+        for(int i=0; i<4; i++){
+            profesor.setIdProfesor(VPidProfesor[i]);
+            profesor.setNombreProfesor(VPnombreProfesor[i]);
+            profesor.setIdUsuario(VPidUsuario[i]);
+            profesor.setIdAsignacionCarga(VPidAsignacionCarga[i]);
+            insertar(profesor);
+        }
 
+        AsignacionCarga asignacionCarga = new AsignacionCarga();
+        for(int i=0; i<4; i++){
+            asignacionCarga.setIdAsignacionCarga(VACidAsignacionCarga[i]);
+            asignacionCarga.setCodigoAsignatura(VACcodigoAsignatura [i]);
+            asignacionCarga.setIdCiclo(VACidCiclo[i]);
+            insertar(asignacionCarga);
+        }
 
-
-
+        TipoComputo tipoComputo = new TipoComputo();
+        for(int i=0; i<4; i++){
+            tipoComputo.setIdTipoComputo(VTCidTipoComputo[i]);
+            tipoComputo.setNombreTipo(VTCnombreTipo[i]);
+            tipoComputo.setEspecificacionTecnica(VTCespecificacionTecnica[i]);
+            insertar(tipoComputo);
+        }
 
 
         cerrar();

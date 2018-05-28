@@ -18,7 +18,7 @@ public class TipoComputoConsultarActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tipo_computo_consultar);
         helper = new ControlBDReservacionLab(this);
-        editIdTipoComputo = (EditText) findViewById(R.id.editIdAsignacionCarga);
+        editIdTipoComputo = (EditText) findViewById(R.id.editIdTipoComputo);
         editNombreTipo = (EditText) findViewById(R.id.editNombreTipo);
         editEspecificacionTecnica = (EditText) findViewById(R.id.editEspecificacionTecnica);
     }
