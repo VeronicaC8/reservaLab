@@ -1213,7 +1213,7 @@ public String insertar(AsignacionCarga asignacionCarga) {
                 Cursor c3 = db.query("reservacion", null, "codLaboratorio=? ", id2, null, null, null);
                 Cursor c4 = db.query("reservacion", null, " idHora=?", id3, null, null, null);
                 Cursor c5 = db.query("reservacion", null, "idDia=?", id4, null, null, null);
-                if(c2.moveToFirst() &&  c3.moveToFirst()  && c4.moveToFirst()  && c5.moveToFirst()){ //Se encontro reservacion
+                if(c2.moveToFirst() || (c3.moveToFirst()  && c4.moveToFirst()  && c5.moveToFirst())){ //Se encontro reservacion
                     return true; }
                 return false;
             }
