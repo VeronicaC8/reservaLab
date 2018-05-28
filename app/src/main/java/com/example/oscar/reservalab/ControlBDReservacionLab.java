@@ -793,7 +793,7 @@ public class ControlBDReservacionLab {
 
     //Actualizar reservacion
     public String actualizar(Reservacion reservacion){
-        if(verificarIntegridad(reservacion,7)){
+        if(verificarIntegridad(reservacion,26)){
             String[] id={reservacion.getIdReservacion()};
             ContentValues cv = new ContentValues();
             cv.put("idReservacion", reservacion.getIdReservacion());
@@ -917,7 +917,7 @@ public String insertar(AsignacionCarga asignacionCarga) {
 
         String regAfectados="filas afectadas= "; int contador=0;
         // 2 Verificar registro que exista
-        if(verificarIntegridad(reservacion, 17)) { String where="idReservacion='"+reservacion.getIdReservacion()+"'";
+        if(verificarIntegridad(reservacion, 26)) { String where="idReservacion='"+reservacion.getIdReservacion()+"'";
             contador+=db.delete("reservacion", where, null);
             regAfectados+=contador;
             return regAfectados;
@@ -1393,7 +1393,19 @@ public String insertar(AsignacionCarga asignacionCarga) {
                 }
                 return true;
             }
+            case 26:{
+                //Verificar que exista reservacion para actualizar y eliminar
+                Reservacion reservacion2 = (Reservacion) dato;
+                String[] id = {reservacion2.getIdReservacion()};
+                //Verifica que exista horario
+                abrir();
+                //Cursor c2 = db.query("reservacion", null, "idReservacion = ? && idHorario = ?", id, null, null, null);
+                Cursor c2 = db.query("reservacion", null, "idReservacion = ? ", id, null, null, null);
 
+                if(c2.moveToFirst()){ //Se encontro reservacion
+                    return true; }
+                return false;
+            }
 
 
 
