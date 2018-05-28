@@ -22,7 +22,7 @@ public class ControlBDReservacionLab {
     private static final String[] camposAsignacionCarga=new String[]{"idAsignacionCarga","codigoAsignatura","idCiclo"};
 
     //Quitar codLaboratorio
-    private static final String[] camposTipoComputo=new String[]{"idTipoComputo","codLaboratorio","nombreTipo","especificacionTecnica"};
+    private static final String[] camposTipoComputo=new String[]{"idTipoComputo","nombreTipo","especificacionTecnica"};
 
     private static final String[] camposUsuario=new String[] {"idUsuario","usuario", "contrasena", "tipoUsuario"};
     private static final String[] camposAcceso=new String[] {"tipoUsuario","descripcion"};
@@ -83,7 +83,7 @@ public class ControlBDReservacionLab {
                 db.execSQL("CREATE TABLE profesor(idprofesor VARCHAR(10) NOT NULL PRIMARY KEY, nombreProfesor VARCHAR(30) NOT NULL,idUsuario VARCHAR(10) NOT NULL,idAsignacionCarga INTEGER NOT NULL);");
                 db.execSQL("CREATE TABLE asignacionCarga(idAsignacionCarga INTEGER NOT NULL PRIMARY KEY, codigoAsignatura VARCHAR(10) NOT NULL, idCiclo INTEGER NOT NULL);");
                 //Quitar codLaboratorio
-                db.execSQL("CREATE TABLE tipoComputo(idTipoComputo INTEGER NOT NULL PRIMARY KEY, codLaboratorio VARCHAR(10) NOT NULL, nombreTipo VARCHAR(12) NOT NULL,especificacionTecnica VARCHAR(30) NOT NULL);");
+                db.execSQL("CREATE TABLE tipoComputo(idTipoComputo INTEGER NOT NULL PRIMARY KEY, nombreTipo VARCHAR(12) NOT NULL,especificacionTecnica VARCHAR(30) NOT NULL);");
 
                 db.execSQL("CREATE TABLE usuario(idUsuario INTEGER NOT NULL PRIMARY KEY, contrasena VARCHAR(8) NOT NULL, usuario VARCHAR(10) NOT NULL,tipoUsuario INTEGER NOT NULL );");
                 db.execSQL("CREATE TABLE accesoUsuario(tipoUsuario INTEGER NOT NULL PRIMARY KEY, descripcion VARCHAR(30) NOT NULL);");
@@ -774,7 +774,6 @@ public class ControlBDReservacionLab {
 
         ContentValues tipo = new ContentValues();
         tipo.put("idTipoComputo", tipoComputo.getIdTipoComputo());
-        tipo.put("codLaboratorio", tipoComputo.getCodLaboratorio());
         tipo.put("nombreTipo", tipoComputo.getNombreTipo());
         tipo.put("especificacionTecnica",tipoComputo.getEspecificacionTecnica());
 
@@ -907,7 +906,6 @@ public String insertar(AsignacionCarga asignacionCarga) {
             String[] id={String.valueOf(tipoComputo.getIdTipoComputo())};
             ContentValues cv = new ContentValues();
 
-            cv.put("codLaboratorio", tipoComputo.getCodLaboratorio());
             cv.put("nombreTipo", tipoComputo.getNombreTipo());
             cv.put("especificacionTecnica", tipoComputo.getEspecificacionTecnica());
             db.update("tipoComputo", cv, "idTipoComputo =? ", id);
@@ -989,11 +987,6 @@ public String insertar(AsignacionCarga asignacionCarga) {
     public String eliminar(TipoComputo tipoComputo){
         String regAfectados="Filas afectadas=";
         int contador=0;
-
-        if(verificarIntegridad(tipoComputo,2)){  //VERIFICAR RELACION
-            contador+=db.delete("Laboratorio","codLaboratorio='"+tipoComputo.getCodLaboratorio()+"'", null);
-
-        }
         contador+=db.delete("tipoComputo","idTipoComputo='"+tipoComputo.getIdTipoComputo()+"'",null);
         regAfectados+=contador;
         return regAfectados;
@@ -1048,9 +1041,8 @@ public String insertar(AsignacionCarga asignacionCarga) {
         if(cursor.moveToFirst()){
             TipoComputo tipoComputo = new TipoComputo();
             tipoComputo.setIdTipoComputo(cursor.getInt(0));
-            tipoComputo.setCodLaboratorio(cursor.getString(1));
-            tipoComputo.setNombreTipo(cursor.getString(2));
-            tipoComputo.setEspecificacionTecnica(cursor.getString(3));
+            tipoComputo.setNombreTipo(cursor.getString(1));
+            tipoComputo.setEspecificacionTecnica(cursor.getString(2));
             return tipoComputo;
         } else{
             return null;
@@ -1317,27 +1309,7 @@ public String insertar(AsignacionCarga asignacionCarga) {
                 }
                 return false;
             }
-                /*case 15: {//VERIFICAR QUE AL INSERTAR TIPO COMPUTO exista el codigo de Laboratorio
-                    TipoComputo tipoComputo = (TipoComputo) dato;
-                    String[] id1 = {tipoComputo.getCodLaboratorio()};
-                    abrir();
-                    Cursor cursor1 = db.query("laboratorio", null, "codLaboratorio =?", id1, null, null, null);
-                    if(cursor1.moveToFirst()) {
-                        return true;
-                    }
-                    return false;
-                }
-                case 16:{
-                    //verificar que al modificar el tipo computo existan el codigo de laboratorio
-                    TipoComputo tipoComputo1 = (TipoComputo) dato;
-                    String[]  ids = {tipoComputo1.getCodLaboratorio()};
-                    abrir();
-                    Cursor c = db.query("tipoComputo",null, "codLaboratorio = ? ",ids, null, null, null);
-                    if(c.moveToFirst()) {
-                        return true;
-                    }
-                    return false;
-                }*/
+
             case 17:{
                 //Verificar que exista Tipo de Carga
                 TipoCarga tipoCarga2 = (TipoCarga) dato;
@@ -1542,11 +1514,3 @@ public String insertar(AsignacionCarga asignacionCarga) {
 
     }
 }
-
-
-
-
-
-
-
-
