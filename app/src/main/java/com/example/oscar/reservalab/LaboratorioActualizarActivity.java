@@ -9,8 +9,8 @@ import android.widget.Toast;
 public class LaboratorioActualizarActivity extends AppCompatActivity {
 
     ControlBDReservacionLab helper;
-    EditText editIdTipoComputo;
     EditText editCodLaboratorio;
+    EditText editIdTipoComputo;
     EditText editPlantaLaboratorio;
     EditText editCantidadEquiposLaboratorio;
 
@@ -35,7 +35,7 @@ public class LaboratorioActualizarActivity extends AppCompatActivity {
         String estado=helper.actualizar(laboratorio);
         helper.cerrar();
 
-        Toast.makeText(this,estado,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, estado,Toast.LENGTH_SHORT).show();
     }
     public void limpiarTexto(View v) {
         editCodLaboratorio.setText("");

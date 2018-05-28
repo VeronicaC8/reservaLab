@@ -330,6 +330,7 @@ public class ControlBDReservacionLab {
             return null;
         }
     }
+    //"codLaboratorio",         "idTipoComputo"        ,"plantaLaboratorio",      "cantidadEquiposLaboratorio"};
     //codLaboratorio VARCHAR(6), idTipoComputo INTEGER, plantaLaboratorio INTEGER, cantidadEquiposLaboratorio INTEGER
 
 
@@ -1373,17 +1374,16 @@ public String insertar(AsignacionCarga asignacionCarga) {
             }
             case 23:
             {
-                //Verificar que al Actualizar  dia exista
+                //Verificar que al Actualizar  idTipoComputo exista
                 Laboratorio laboratorio2=(Laboratorio)dato;
-                String[] ids={String.valueOf(laboratorio2.getIdTipoComputo()),laboratorio2.getCodLaboratorio()};
+                String[] ids={laboratorio2.getCodLaboratorio(), String.valueOf(laboratorio2.getIdTipoComputo())};
                 abrir();
-                Cursor c=db.query("laboratorio",null,"idTipoComputo = ? AND codLaboratorio",ids,null,null,null);
+                Cursor c=db.query("laboratorio",null,"codLaboratorio=? AND idTipoComputo = ? ",ids,null,null,null);
                 if(c.moveToFirst()){
                     return true;
                 }
                 return false;
             }
-
             case 24:
             {        //Dia   Reservacion
                 Dia dia =(Dia)dato;
