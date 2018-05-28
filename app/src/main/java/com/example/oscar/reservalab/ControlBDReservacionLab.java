@@ -1430,13 +1430,16 @@ public String insertar(AsignacionCarga asignacionCarga) {
         final Integer[] VCnumCico={01,02};
         final Integer[] VCanio={2017, 2018};
 
+        //Horario
         final  Integer[] VHidHorario={1,2,3,4,5,6,7,8};
         final  String[] VHhoraInicio={"6:20 AM","8:05 AM","9:50 AM","11:35 AM","1:20 PM","3:05 PM","4:50 PM","6:35 PM"};
         final  String[] VHhoraFin={"8:00 AM","9:45 AM","11:30 AM","1:15 PM","3:00 PM","4:45 PM","6:30 PM","8:15 PM"};
 
+        //Dia
         final  Integer[] VDidDia={1,2,3,4,5};
         final  String[] VDnomDia={"lunes","martes","miercoles","jueves","viernes"};
 
+        //Laboratorio
         final String[] VLcodLaboratorio={"LCOMP1","LCOMP2","LCOMP3","LCOMP4"};
         final Integer[] VLidTipoComputo={1,2,3,4};
         final Integer[] VLplantaLaboratorio={1,1,1,2};
