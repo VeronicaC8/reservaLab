@@ -15,19 +15,20 @@ public class LaboratorioEliminarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_laboratorio_eliminar);
         controlhelper=new ControlBDReservacionLab(this);
         editCodLaboratorio=(EditText)findViewById(R.id.editCodLaboratorio);
-        editTipoComputo=(EditText)findViewById(R.id.editTipoComputo);
+     /*   editTipoComputo=(EditText)findViewById(R.id.editTipoComputo);
         editPlantaLaboratorio=(EditText)findViewById(R.id.editPlantaLaboratorio);
-        editCantidadEquiposLaboratorio=(EditText)findViewById(R.id.editCantidadEquiposLaboratorio);
+        editCantidadEquiposLaboratorio=(EditText)findViewById(R.id.editCantidadEquiposLaboratorio);  */
     }
     public void eliminarLaboratorio(View v){
         String regEliminadas;
         Laboratorio laboratorio=new Laboratorio();
-        laboratorio.setCodLaboratorio(editCodLaboratorio.getText().toString());
+        laboratorio.setCodLaboratorio(editCodLaboratorio.getText().toString()); /*
         laboratorio.setIdTipoComputo(Integer.valueOf(editTipoComputo.getText().toString()));
         laboratorio.setPlantaLaboratorio(Integer.valueOf(editPlantaLaboratorio.getText().toString()));
-        laboratorio.setCantidadEquiposLaboratorio(Integer.valueOf(editCantidadEquiposLaboratorio.getText().toString()));
+        laboratorio.setCantidadEquiposLaboratorio(Integer.valueOf(editCantidadEquiposLaboratorio.getText().toString()));   */
         controlhelper.abrir();
         regEliminadas=controlhelper.eliminar(laboratorio);
+        controlhelper.cerrar();
         Toast.makeText(this, regEliminadas,Toast.LENGTH_SHORT).show();
     }
     public void limpiar(View v){

@@ -267,25 +267,18 @@ public class ControlBDReservacionLab {
         return regAfectados;
     }
 
-    //Eliminar Tipo Computo
-
 
     //Eliminar laboratorio
     public String eliminar(Laboratorio laboratorio){
         String regAfectados="filas afectadas= ";
         int contador=0;
-        String where="codLaboratorio='"+laboratorio.getCodLaboratorio()+"'";
-        where=where+" AND idTipoComputo = "+laboratorio.getIdTipoComputo();
-        where=where+" AND plantaLaboratorio="+laboratorio.getPlantaLaboratorio();
-        where=where+" AND cantidadEquiposLaboratorio="+laboratorio.getCantidadEquiposLaboratorio();
-        contador+=db.delete("nota", where, null);
+        if(verificarIntegridad(laboratorio, 27)){
+            contador+=db.delete("reservacion","codLaboratorio='"+laboratorio.getCodLaboratorio()+"'",null);
+        }
+        contador+=db.delete("laboratorio","codLaboratorio='"+laboratorio.getCodLaboratorio()+"'",null);
         regAfectados+=contador;
         return regAfectados;
     }
-
-
-
-
 
 
     public Horario consultarHorario(Integer idHorario){
@@ -330,9 +323,6 @@ public class ControlBDReservacionLab {
             return null;
         }
     }
-    //"codLaboratorio",         "idTipoComputo"        ,"plantaLaboratorio",      "cantidadEquiposLaboratorio"};
-    //codLaboratorio VARCHAR(6), idTipoComputo INTEGER, plantaLaboratorio INTEGER, cantidadEquiposLaboratorio INTEGER
-
 
     ///INSERTAR ASIGNATURA
     public String insertar(Asignatura asignatura) {
@@ -1405,6 +1395,15 @@ public String insertar(AsignacionCarga asignacionCarga) {
                 if(c2.moveToFirst()){ //Se encontro reservacion
                     return true; }
                 return false;
+            }
+            case 27:
+            {
+                Laboratorio laboratorio=(Laboratorio)dato;
+                Cursor labo=db.query(true,"reservacion",new String[]{"codLaboratorio"}, "codLaboratorio='"+laboratorio.getCodLaboratorio()+"'",null,null,null,null,null);
+                if(labo.moveToFirst())
+                return true;
+                else
+                    return false;
             }
 
 
