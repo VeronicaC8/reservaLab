@@ -1446,7 +1446,7 @@ public String insertar(AsignacionCarga asignacionCarga) {
         final  String[] VDnomDia={"lunes","martes","miercoles","jueves","viernes"};
 
         //Laboratorio
-        final String[] VLcodLaboratorio={"LCOMP1","LCOMP2","LCOMP3","LCOMP4"};
+        final String[] VLcodLaboratorio={"LCOM1","LCOM2","LCOM3","LCOM4"};
         final Integer[] VLidTipoComputo={1,2,3,4};
         final Integer[] VLplantaLaboratorio={1,1,1,2};
         final Integer[] VLcantidadEquiposLaboratorio={25,31,16,21};
@@ -1522,6 +1522,14 @@ public String insertar(AsignacionCarga asignacionCarga) {
             insertar(dia);
         }
 
+        TipoComputo tipoComputo = new TipoComputo();
+        for(int i=0; i<4; i++){
+            tipoComputo.setIdTipoComputo(VTCidTipoComputo[i]);
+            tipoComputo.setNombreTipo(VTCnombreTipo[i]);
+            tipoComputo.setEspecificacionTecnica(VTCespecificacionTecnica[i]);
+            insertar(tipoComputo);
+        }
+
         Laboratorio laboratorio=new Laboratorio();
         for(int i=0;i<4;i++){
             laboratorio.setCodLaboratorio(VLcodLaboratorio[i]);
@@ -1548,13 +1556,6 @@ public String insertar(AsignacionCarga asignacionCarga) {
             insertar(asignacionCarga);
         }
 
-        TipoComputo tipoComputo = new TipoComputo();
-        for(int i=0; i<4; i++){
-            tipoComputo.setIdTipoComputo(VTCidTipoComputo[i]);
-            tipoComputo.setNombreTipo(VTCnombreTipo[i]);
-            tipoComputo.setEspecificacionTecnica(VTCespecificacionTecnica[i]);
-            insertar(tipoComputo);
-        }
 
 
         cerrar();
