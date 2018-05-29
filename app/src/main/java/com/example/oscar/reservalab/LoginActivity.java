@@ -26,11 +26,12 @@ public class LoginActivity extends AppCompatActivity {
         BDhelper=new ControlBDReservacionLab(this);
 
     }
-    public void llenarBase(){
+    public void llenarBase(View v){
         BDhelper=new ControlBDReservacionLab(this);
         BDhelper.abrir();
-        BDhelper.llenarBDReservacionLab();
+        String tost=BDhelper.llenarBDReservacionLab();
         BDhelper.cerrar();
+        Toast.makeText(this, tost, Toast.LENGTH_SHORT).show();
     }
     public void ingresar(View v){
         helper.abrir();

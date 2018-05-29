@@ -65,7 +65,7 @@
         android:layout_marginTop="39dp"
         android:text="Ingresar" />
 
-  <!--  <Button
+       <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -73,5 +73,5 @@
         android:onClick="llenarBase"
         android:text="@string/llenar" />
 
--->
+
 </RelativeLayout>
