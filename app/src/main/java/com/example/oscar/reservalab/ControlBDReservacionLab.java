@@ -74,22 +74,51 @@ public class ControlBDReservacionLab {
                 db.execSQL("CREATE TABLE asignatura(codigoAsignatura VARCHAR(10) NOT NULL PRIMARY KEY, nombreAsignatura VARCHAR(30) NOT NULL, idCiclo INTEGER NOT NULL);");
                 db.execSQL("CREATE TABLE ciclo(idCiclo Integer NOT NULL PRIMARY KEY, numCiclo Integer NOT NULL, anio Integer NOT NULL);");
                 db.execSQL("CREATE TABLE asignacionAsignatura(idAsignacionAsignatura INTEGER NOT NULL PRIMARY KEY, codLaboratorio VARCHAR(10) NOT NULL, codigoAsignatura VARCHAR(10) NOT NULL);");
-                //dia, hora
                 db.execSQL("CREATE TABLE reservacion(idReservacion VARCHAR(3) NOT NULL PRIMARY KEY, codLaboratorio VARCHAR(10) NOT NULL, idProfesor VARCHAR(20) NOT NULL, idHora VARCHAR(15),idDia VARCHAR(10));");
                 db.execSQL("CREATE TABLE tipoCarga(idTipoCarga VARCHAR(3) NOT NULL PRIMARY KEY, nombreTipoCarga VARCHAR(30) NOT NULL);");
-                //idTipoCarga VARCHAR(3-10)
                 db.execSQL("CREATE TABLE carga(idCarga VARCHAR(3) NOT NULL PRIMARY KEY, idTipoCarga VARCHAR(10) NOT NULL, codAsignatura VARCHAR(10) NOT NULL, numGrupo INTEGER);");
-                //idprofresro idProfesor
                 db.execSQL("CREATE TABLE profesor(idProfesor VARCHAR(10) NOT NULL PRIMARY KEY, nombreProfesor VARCHAR(30) NOT NULL,idUsuario INTEGER NOT NULL,idAsignacionCarga INTEGER NOT NULL);");
                 db.execSQL("CREATE TABLE asignacionCarga(idAsignacionCarga INTEGER NOT NULL PRIMARY KEY, codigoAsignatura VARCHAR(10) NOT NULL, idCiclo INTEGER NOT NULL);");
-                //Quitar codLaboratorio
                 db.execSQL("CREATE TABLE tipoComputo(idTipoComputo INTEGER NOT NULL PRIMARY KEY, nombreTipo VARCHAR(30) NOT NULL,especificacionTecnica VARCHAR(70) NOT NULL);");
-
                 db.execSQL("CREATE TABLE usuario(idUsuario INTEGER NOT NULL PRIMARY KEY, contrasena VARCHAR(8) NOT NULL, usuario VARCHAR(10) NOT NULL,tipoUsuario INTEGER NOT NULL );");
                 db.execSQL("CREATE TABLE accesoUsuario(tipoUsuario INTEGER NOT NULL PRIMARY KEY, descripcion VARCHAR(30) NOT NULL);");
                 db.execSQL("CREATE TABLE horario(idHorario INTEGER NOT NULL PRIMARY KEY, horaInicio VARCHAR(8) NOT NULL, horaFin VARCHAR(8) NOT NULL);");
                 db.execSQL("CREATE TABLE dia(idDia INTEGER NOT NULL PRIMARY KEY, nomDia VARCHAR(9) NOT NULL);");
                 db.execSQL("CREATE TABLE laboratorio(codLaboratorio VARCHAR(6) NOT NULL PRIMARY KEY, idTipoComputo INTEGER NOT NULL, plantaLaboratorio INTEGER NOT NULL, cantidadEquiposLaboratorio INTEGER NOT NULL);");
+
+                /*
+                db.execSQL("CREATE TRIGGER Fk1 "+
+                "BEFORE INSERT ON reservacion FOR EACH ROW " +
+                "BEGIN " +
+                "SELECT CASE WHEN ((SELECT idReservacion FROM reservacion WHERE NEW.idDia = 4 AND NEW.idHorario<5) IS NULL) THEN RAISE(ABORT, 'No se puede reservar los jueves por la ma;ana') " +
+                "END; "+
+                "END; ");
+                
+
+
+
+                db.execSQL("CREATE TRIGGER Fk2 " +
+                        "BEFORE INSERT ON nota FOR EACH ROW " +
+                        "BEGIN " +
+                        "SELECT CASE WHEN ((SELECT codmateria FROM materia WHERE codmateria = NEW.codmateria) IS NULL) THEN RAISE(ABORT, 'No existe materia') " +
+                        "END; "+
+                        "END;");
+
+                db.execSQL("CREATE TRIGGER nota1 " +
+                        "AFTER UPDATE OF notafinal ON nota " +
+                        "FOR EACH ROW WHEN new.notafinal>=6 AND old.notafinal<6 " +
+                        "BEGIN " +
+                        "UPDATE alumno SET matganadas=matganadas+1 " +
+                        "WHERE alumno.carnet=new.carnet ; " +
+                        "END; ");
+                db.execSQL("CREATE TRIGGER nota2 " +
+                        "AFTER UPDATE OF notafinal ON nota " +
+                        "FOR EACH ROW WHEN new.notafinal<6 AND old.notafinal>=6 " +
+                        "BEGIN " +
+                        "UPDATE alumno SET matganadas=matganadas-1 WHERE alumno.carnet=new.carnet; " +
+                        "END; ");
+*/
+
 
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -204,7 +233,6 @@ public class ControlBDReservacionLab {
 
 
 
-
     //Actualizar Hora
     public String actualizar(Horario horario){
         return null;
@@ -222,8 +250,6 @@ public class ControlBDReservacionLab {
             return "Registro con id Dia "+dia.getIdDia()+ "no existe";
         }
     }
-
-    //Actualizar Tipo Computo
 
 
     //Actualizar laboratorio
@@ -1507,7 +1533,7 @@ public String insertar(AsignacionCarga asignacionCarga) {
         }
 
         Horario horario=new Horario();
-        for(int i=0;i<4;i++){
+        for(int i=0;i<8;i++){
             horario.setIdHorario(VHidHorario[i]);
             horario.setHoraInicio(VHhoraInicio[i]);
             horario.setHoraFin(VHhoraFin[i]);
