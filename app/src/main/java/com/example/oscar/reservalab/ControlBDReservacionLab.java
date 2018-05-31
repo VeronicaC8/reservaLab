@@ -59,7 +59,7 @@ public class ControlBDReservacionLab {
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
 
-        private static final String BASE_DATOS = "reservacionLab2.s3db";
+        private static final String BASE_DATOS = "reservacionLa2.s3db";
         private static final int VERSION = 1;
 
         public DatabaseHelper(Context context) {
@@ -364,7 +364,7 @@ public class ControlBDReservacionLab {
                 ContentValues asig = new ContentValues();
                 asig.put("codigoAsignatura", asignatura.getCodigoAsignatura());
                 asig.put("nombreAsignatura", asignatura.getNombreAsignatura());
-                asig.put("numCiclo", asignatura.getIdCiclo());
+                asig.put("idCiclo", asignatura.getIdCiclo());
                 contador = db.insert("asignatura", null, asig);
             }
 
@@ -409,10 +409,10 @@ public class ControlBDReservacionLab {
     }
 
     //CONSULTAR ASIGNATURA
-    public Asignatura consultarAsignatura(String codigoAsignatura, String nombreAsignatura, Integer idCiclo){
+    public Asignatura consultarAsignatura(String codigoAsignatura){
 
-        String[] id = {codigoAsignatura, nombreAsignatura, String.valueOf(idCiclo)};
-        Cursor cursor = db.query("asignatura", camposAsignatura, "codigoAsignatura = ? AND nombreAsignatura = ? AND idCiclo = ?", id, null, null, null);
+        String[] id = {codigoAsignatura};
+        Cursor cursor = db.query("asignatura", camposAsignatura, "codigoAsignatura =?", id, null, null, null);
         if(cursor.moveToFirst()){
             Asignatura asignatura = new Asignatura();
             asignatura.setCodigoAsignatura(cursor.getString(0));
@@ -1513,13 +1513,7 @@ public String insertar(AsignacionCarga asignacionCarga) {
         db.execSQL("DELETE FROM carga;");
 
 
-        Asignatura asignatura = new Asignatura();
-        for(int i=0; i<2; i++){
-            asignatura.setCodigoAsignatura(VAcodigo[i]);
-            asignatura.setNombreAsignatura(VAnombre[i]);
-            asignatura.setIdCiclo(VAnumCiclo[i]);
-            insertar(asignatura);
-        }
+
 
         Ciclo ciclo = new Ciclo();
         for(int i=0; i<2; i++){
@@ -1527,6 +1521,13 @@ public String insertar(AsignacionCarga asignacionCarga) {
             ciclo.setNumCiclo(VCnumCico[i]);
             ciclo.setAnio(VCanio[i]);
             insertar(ciclo);
+        }
+        Asignatura asignatura = new Asignatura();
+        for(int i=0; i<2; i++){
+            asignatura.setCodigoAsignatura(VAcodigo[i]);
+            asignatura.setNombreAsignatura(VAnombre[i]);
+            asignatura.setIdCiclo(VAnumCiclo[i]);
+            insertar(asignatura);
         }
 
         Usuario us = new Usuario();

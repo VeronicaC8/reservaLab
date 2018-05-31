@@ -30,7 +30,8 @@ public class AsignaturaConsultarActivity extends Activity {
 
     public void consultar(View v) {
         helper.abrir();
-        Asignatura asignatura = helper.consultarAsignatura(editCod.getText().toString(), editNombre.getText().toString(), Integer.valueOf(editAnio.getText().toString()));
+        Asignatura asignatura = helper.consultarAsignatura(editCod.getText().toString());
+       // Asignatura asignatura = helper.consultarAsignatura(editCod.getText().toString());
         helper.cerrar();
         if(asignatura == null)
             Toast.makeText(this,"Asignatura con codigo" + editCod.getText().toString()+ "No encontrado", Toast.LENGTH_SHORT).show();

@@ -31,12 +31,12 @@ public class AsignaturaInsertarActivity extends Activity {
         String regInsertados;
         String codigoAsignatura=editCodAsignatura.getText().toString();
         String nombreAsignatura=editNombreAsignatura.getText().toString();
-        Integer numCiclo=Integer.valueOf(editIdCiclo.getText().toString());
+        Integer idCiclo=Integer.valueOf(editIdCiclo.getText().toString());
 
         Asignatura asignatura= new Asignatura();
         asignatura.setCodigoAsignatura(codigoAsignatura);
         asignatura.setNombreAsignatura(nombreAsignatura);
-        asignatura.setIdCiclo(numCiclo);
+        asignatura.setIdCiclo(idCiclo);
 
         helper.abrir();
         regInsertados=helper.insertar(asignatura);

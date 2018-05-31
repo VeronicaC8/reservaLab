@@ -32,7 +32,7 @@
 
     <TableRow>
         <Button
-            android:onClick="insertar"
+            android:onClick="insertarAsignatura"
             android:text="@string/insertar" />
         <Button
             android:onClick="limpiarTexto"
