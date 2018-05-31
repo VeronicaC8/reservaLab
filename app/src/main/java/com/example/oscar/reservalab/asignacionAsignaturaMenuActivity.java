@@ -11,7 +11,7 @@ import android.widget.ListView;
 public class asignacionAsignaturaMenuActivity extends ListActivity {
 
     String[] menu={"Insertar Registro","Eliminar Registro","Consultar Registro", "Actualizar Registro"};
-    String[] activities={"asignacionAsignaturaInsertarActivity","asignacionAsignaturaEliminarActivity","asignacionAsignaturaConsultarActivity", "asignacionAsignaturaActualizarActivity"};
+    String[] activities={"asignacionAsignaturaIngresarActivity","asignacionAsignaturaEliminarActivity","asignacionAsignaturaConsultarActivity", "asignacionAsignaturaActualizarActivity"};
 
 
     @Override

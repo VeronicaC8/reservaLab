@@ -28,7 +28,7 @@ public class AsignaturaConsultarActivity extends Activity {
 
     }
 
-    public void consultar(View v) {
+    public void consultarAsignatura(View v) {
         helper.abrir();
         Asignatura asignatura = helper.consultarAsignatura(editCod.getText().toString());
        // Asignatura asignatura = helper.consultarAsignatura(editCod.getText().toString());
@@ -38,7 +38,7 @@ public class AsignaturaConsultarActivity extends Activity {
         else
         {
             editNombre.setText(asignatura.getNombreAsignatura());
-            editAnio.setText(String.valueOf(asignatura.getIdCiclo()));
+            editAnio.setText(String.valueOf(asignatura.getCodigoAsignatura()));
 
         }
 

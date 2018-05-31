@@ -49,7 +49,7 @@
 
     --asignacionAsignatura--
 
-    <string name="title_activity_asignacion_asignatura_insertar">AsignaturaInsertarActivity</string>
+    <string name="title_activity_asignacion_asignatura_ingresar">AsignaturaIngresarActivity</string>
     <string name="title_activity_asignacion_asignatura_eliminar">AsignaturaEliminarActivity</string>
     <string name="title_activity_asignacion_asignatura_actualizar">AsignaturaActualizarActivity</string>
     <string name="title_activity_asignacion_asignatura_consultar">AsignaturaConsultarActivity</string>

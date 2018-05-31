@@ -19,7 +19,7 @@
             android:maxLength="30" />
     </TableRow>
     <TableRow>
-        <TextView android:text="@string/anio" />
+        <TextView android:text="@string/numCiclo" />
         <EditText
             android:id="@+id/editIdCiclo"
             android:inputType="number"

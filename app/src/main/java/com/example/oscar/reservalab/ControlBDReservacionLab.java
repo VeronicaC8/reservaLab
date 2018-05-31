@@ -13,7 +13,7 @@ import java.sql.Struct;
 public class ControlBDReservacionLab {
 
     private static final String[] camposCiclo = new String[]{"idCiclo", "numCiclo", "anio"};
-    private static final String[] camposAsignatura = new String[]{"codigoAsignatura", "nombreAsignatura", "numCiclo"};
+    private static final String[] camposAsignatura = new String[]{"codigoAsignatura", "nombreAsignatura", "idCiclo"};
     private static final String[] camposAsignacionAsignatura = new String[]{"idAsignacionAsignatura", "codigoAsignatura","codLaboratorio"};
     private static final String[] camposReservacion=new String[] {"idReservacion","codLaboratorio",  "idProfesor","idHora","idDia"};
     private static final String[] camposTipoCarga=new String[] {"idTipoCarga","nombreTipoCarga"};
@@ -604,14 +604,20 @@ public class ControlBDReservacionLab {
         long contador = 0;
 
 
-        if (verificarIntegridad(asignacion, 6)) {
+        if (verificarIntegridad(asignacion, 5)) //verifica integridad referencial
+
+        {
+            if (verificarIntegridad(asignacion,28)) {
             regInsertados = "Asignacion existente";
         } else {
             ContentValues asig = new ContentValues();
             asig.put("idAsignacionAsignatura", asignacion.getIdAsignacionAsignatura());
-            asig.put("conLaboratorio", asignacion.getCodLaboratorio());
+            asig.put("codLaboratorio", asignacion.getCodLaboratorio());
             asig.put("codigoAsignatura", asignacion.getCodAsignatura());
-            contador = db.insert("asignacion_asignatura", null, asig);
+            contador = db.insert("asignacionAsignatura", null, asig);
+        }}
+        else {
+            regInsertados = "error al insertar no existe referencia";
         }
 
         regInsertados = regInsertados + contador;
@@ -645,25 +651,35 @@ public class ControlBDReservacionLab {
 
     public String actualizar(asignacionAsignatura asignacion) {
 
-        if (verificarIntegridad(asignacion, 6)) {
-            String[] id = {Integer.toString(asignacion.getIdAsignacionAsignatura())};
-            ContentValues cv = new ContentValues();
-            cv.put("idAsignacionAsignatura", asignacion.getIdAsignacionAsignatura());
-            cv.put("codLaboratorio", asignacion.getCodLaboratorio());
-            cv.put("codigoAsignatura", asignacion.getCodAsignatura());
-            db.update("asignacion_asignatura", cv, "idAsignacionAsignatura=?", id);
-            return "Registro Actualizado Correctamente";
-        } else {
-            return "Registro con código de Asignacion" + asignacion.getIdAsignacionAsignatura() + "No existe";
+        String regInsertados = "Registro Actualizado Nº= ";
+        long contador = 0;
+
+
+        if (verificarIntegridad(asignacion, 29)) //verifica integridad referencial
+
+        {
+
+                ContentValues asig = new ContentValues();
+                asig.put("idAsignacionAsignatura", asignacion.getIdAsignacionAsignatura());
+                asig.put("codLaboratorio", asignacion.getCodLaboratorio());
+                asig.put("codigoAsignatura", asignacion.getCodAsignatura());
+                contador = db.insert("asignacionAsignatura", null, asig);
+            }
+        else {
+            regInsertados = "error al insertar no existe referencia";
         }
+
+        regInsertados = regInsertados + contador;
+        return regInsertados;
     }
+
 
     //Consultar asignacion de asignatura
 
     public asignacionAsignatura consultar(Integer idAsignacionAsignatura){
 
         String[] id={Integer.toString(idAsignacionAsignatura)};
-        Cursor cursor = db.query("asignacionAsignatura",camposAsignacionAsignatura,"idCiclo =? ", id, null, null, null);
+        Cursor cursor = db.query("asignacionAsignatura",camposAsignacionAsignatura,"idAsignacionAsignatura =? ", id, null, null, null);
 
         if(cursor.moveToFirst()){
             asignacionAsignatura asignacion = new asignacionAsignatura();
@@ -1163,16 +1179,15 @@ public String insertar(AsignacionCarga asignacionCarga) {
             }
 
             case 5:{ //Verificar que exista el codigo de la asignatura y el codigo de lab
-                asignacionAsignatura asignacion=(asignacionAsignatura)dato;
+                asignacionAsignatura asignacion2=(asignacionAsignatura)dato;
 
-                String[] id1 = {asignacion.getCodAsignatura()};
-                String[] id2 = {asignacion.getCodLaboratorio()};
+                String[] id1 = {asignacion2.getCodAsignatura()};
+                String[] id2 = {asignacion2.getCodLaboratorio()};
                 abrir();
                 Cursor cursor1 = db.query("asignatura", null, "codigoAsignatura = ?", id1, null,
                         null, null);
-                Cursor cursor2 = db.query("laboratorio", null, "codLaboratorio = ?", id2,
-                        null, null, null);
-                if(cursor2.moveToFirst() && cursor1.moveToFirst()){
+                Cursor cursor2 = db.query("laboratorio", null, "codLaboratorio = ?", id2, null, null, null);
+                if(cursor1.moveToFirst() && cursor2.moveToFirst()){
 //Se encontraron datos ||
                     return true;
                 }
@@ -1427,7 +1442,35 @@ public String insertar(AsignacionCarga asignacionCarga) {
                     return false;
             }
 
-             default:
+            case 28:
+            {
+                asignacionAsignatura asignacion = (asignacionAsignatura) dato;
+                String[] id = {Integer.toString(asignacion.getIdAsignacionAsignatura())};
+                String[] id2 = {(asignacion.getCodLaboratorio())};
+                String[] id3 = {(asignacion.getCodAsignatura())};
+              //Verifica que exista horario
+                abrir();
+                //Cursor c2 = db.query("reservacion", null, "idReservacion = ? && idHorario = ?", id, null, null, null);
+                Cursor c2 = db.query("asignacionAsignatura", null, "idAsignacionAsignatura = ? ", id, null, null, null);
+                Cursor c3 = db.query("asignacionAsignatura", null, "codLaboratorio=? ", id2, null, null, null);
+                Cursor c4 = db.query("asignacionAsignatura", null, " codigoAsignatura=?", id3, null, null, null);
+
+                if(c2.moveToFirst() || (c3.moveToFirst()  && c4.moveToFirst()  )){ //Se encontro reservacion
+                    return true; }
+                return false;
+            }
+            case 29:
+            {
+                asignacionAsignatura asignacion = (asignacionAsignatura) dato;
+                String[] id = {Integer.toString(asignacion.getIdAsignacionAsignatura())};
+                abrir();
+                Cursor c2 = db.query("asignacionAsignatura", null, "idAsignacionAsignatura = ?", id, null, null, null);
+                if(c2.moveToFirst()){ //Se encontro Tipo de Carga
+                    return true; }
+            }
+
+
+            default:
                 return false; }
 
     }

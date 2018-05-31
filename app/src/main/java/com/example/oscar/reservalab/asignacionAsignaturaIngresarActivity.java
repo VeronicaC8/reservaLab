@@ -12,7 +12,7 @@ public class asignacionAsignaturaIngresarActivity extends Activity {
     ControlBDReservacionLab helper;
     EditText editIdAsignacion;
     EditText editCodLaboratorio;
-    EditText editCodigoAsignatura;
+    EditText editCodAsignatura;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,21 +20,21 @@ public class asignacionAsignaturaIngresarActivity extends Activity {
 
         helper= new ControlBDReservacionLab(this);
         editIdAsignacion=(EditText)findViewById(R.id.editIdAsignacion);
+        editCodAsignatura=(EditText)findViewById(R.id.editCodAsignatura);
         editCodLaboratorio=(EditText)findViewById(R.id.editCodLaboratorio);
-        editCodigoAsignatura=(EditText)findViewById(R.id.editCodigoAsignatura);
     }
 
-    public void insertar(View v){
+    public void insertarAsignacionAsignatura(View v){
 
         String regInsertados;
         Integer idAsignacionAsignatura=Integer.valueOf(editIdAsignacion.getText().toString());
-        String codAsignatura=editIdAsignacion.getText().toString();
-        String codLaboratorio=editCodigoAsignatura.getText().toString();
+        String codAsignatura=editCodAsignatura.getText().toString();
+        String codLaboratorio=editCodLaboratorio.getText().toString();
 
         asignacionAsignatura asignacion= new asignacionAsignatura();
         asignacion.setIdAsignacionAsignatura(idAsignacionAsignatura);
-        asignacion.setCodLaboratorio(codLaboratorio);
         asignacion.setCodAsignatura(codAsignatura);
+        asignacion.setCodLaboratorio(codLaboratorio);
 
         helper.abrir();
         regInsertados=helper.insertar(asignacion);
@@ -49,7 +49,7 @@ public class asignacionAsignaturaIngresarActivity extends Activity {
 
         editIdAsignacion.setText("");
         editCodLaboratorio.setText("");
-        editCodigoAsignatura.setText("");
+        editCodAsignatura.setText("");
 
     }
 }

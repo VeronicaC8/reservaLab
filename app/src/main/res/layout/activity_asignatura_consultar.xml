@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/consultar"
-            android:onClick="consultar"/>
+            android:onClick="consultarAsignatura"/>
         <Button
             android:id="@+id/botonLimpiar"
             android:layout_width="wrap_content"
@@ -42,7 +42,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/codMateria" />
+        android:text="@string/nomMateria" />
+
     <EditText
         android:id="@+id/editNombre"
         android:layout_width="fill_parent"
@@ -57,7 +58,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/nomMateria" />
+        android:text="@string/codMateria" />
+
     <EditText
         android:id="@+id/editAnio"
         android:layout_width="fill_parent"
