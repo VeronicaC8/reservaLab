@@ -392,11 +392,10 @@ public class ControlBDReservacionLab {
     }
 
     //CONSULTAR ASIGNATURA
-    public Asignatura consultarAsignatura(String codigoAsignatura){
+    public Asignatura consultarAsignatura(String codigoAsignatura, String nombreAsignatura, Integer idCiclo){
 
-        String[] id={codigoAsignatura};
-        Cursor cursor = db.query("asignatura",camposAsignatura,"idCiclo =? ", id, null, null, null);
-
+        String[] id = {codigoAsignatura, nombreAsignatura, String.valueOf(idCiclo)};
+        Cursor cursor = db.query("asignatura", camposAsignatura, "codigoAsignatura = ? AND nombreAsignatura = ? AND idCiclo = ?", id, null, null, null);
         if(cursor.moveToFirst()){
             Asignatura asignatura = new Asignatura();
             asignatura.setCodigoAsignatura(cursor.getString(0));
@@ -404,10 +403,9 @@ public class ControlBDReservacionLab {
             asignatura.setIdCiclo(cursor.getInt(2));
 
             return asignatura;
-        } else{
+        }else{
             return null;
         }
-
     }
 
 
@@ -566,21 +564,18 @@ public class ControlBDReservacionLab {
     //CONSULTAR CICLO
     public Ciclo consultarCiclo(int idCiclo){
 
-        String[] id={String.valueOf(idCiclo)};
-
-        Cursor cursor = db.query("ciclo", camposCiclo, "idCiclo = ? ", id, null, null, null);
+        String[] id = {Integer.toString(idCiclo)};
+        Cursor cursor = db.query("ciclo", camposCiclo, "idCiclo = ?", id, null, null, null);
         if(cursor.moveToFirst()){
             Ciclo ciclo = new Ciclo();
             ciclo.setIdCiclo(cursor.getInt(0));
             ciclo.setNumCiclo(cursor.getInt(1));
             ciclo.setAnio(cursor.getInt(2));
 
-
             return ciclo;
         }else{
             return null;
         }
-
     }
 
     //INSERTAR ASIGNNACION DE ASIGNATURA

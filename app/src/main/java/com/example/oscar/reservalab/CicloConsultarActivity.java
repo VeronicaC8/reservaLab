@@ -28,7 +28,7 @@ public class CicloConsultarActivity extends Activity {
 
     }
 
-        public void consultar(View v) {
+        public void consultarCiclo(View v) {
             helper.abrir();
             Ciclo ciclo = helper.consultarCiclo(Integer.parseInt(editIdCiclo.getText().toString()));
             helper.cerrar();

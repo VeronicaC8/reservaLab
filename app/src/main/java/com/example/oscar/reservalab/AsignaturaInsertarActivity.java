@@ -26,7 +26,7 @@ public class AsignaturaInsertarActivity extends Activity {
 
     }
 
-    public void insertar(View v){
+    public void insertarAsignatura(View v){
 
         String regInsertados;
         String codigoAsignatura=editCodAsignatura.getText().toString();

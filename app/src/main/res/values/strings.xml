@@ -38,6 +38,7 @@
     <string name="title_activity_asignatura_eliminar">AsignaturaEliminarActivity</string>
     <string name="title_activity_asignatura_actualizar">AsignaturaActualizarActivity</string>
     <string name="title_activity_asignatura_consultar">AsignaturaConsultarActivity</string>
+    <string name="asignatura"> Consultar Asignatura</string>
     <string name="codMateria">Codigo </string>
     <string name="nomMateria">Nombre</string>
     <string name="anio_mat"></string>
