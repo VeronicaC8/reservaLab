@@ -22,7 +22,7 @@ public class ControlBDReservacionLab {
     private static final String[] camposAsignacionCarga=new String[]{"idAsignacionCarga","codigoAsignatura","idCiclo"};
 
     //Quitar codLaboratorio
-    private static final String[] camposTipoComputo=new String[]{"idTipoComputo","codLaboratorio","nombreTipo","especificacionTecnica"};
+    private static final String[] camposTipoComputo=new String[]{"idTipoComputo","nombreTipo","especificacionTecnica"};
 
     private static final String[] camposUsuario=new String[] {"idUsuario","usuario", "contrasena", "tipoUsuario"};
     private static final String[] camposAcceso=new String[] {"tipoUsuario","descripcion"};
@@ -44,8 +44,8 @@ public class ControlBDReservacionLab {
     private static final String DROP_TABLE7 = "DROP TABLE IF EXISTS profesor;";
     private static final String DROP_TABLE8 = "DROP TABLE IF EXISTS asignacionCarga;";
     private static final String DROP_TABLE9 = "DROP TABLE IF EXISTS tipoComputo;";
-    private static final String DROP_TABLE10 ="DROP TABLE IF EXISTS usuario; ";
-    private static final String DROP_TABLE11 ="DROP TABLE IF EXISTS accesoUsuario";
+    private static final String DROP_TABLE10 ="DROP TABLE IF EXISTS usuario;";
+    private static final String DROP_TABLE11 ="DROP TABLE IF EXISTS accesoUsuario;";
     private static final String DROP_TABLE12 ="DROP TABLE IF EXISTS dia;";
     private static final String DROP_TABLE13 ="DROP TABLE IF EXISTS horario;";
     private static final String DROP_TABLE14 ="DROP TABLE IF EXISTS laboratorio;";
@@ -74,22 +74,51 @@ public class ControlBDReservacionLab {
                 db.execSQL("CREATE TABLE asignatura(codigoAsignatura VARCHAR(10) NOT NULL PRIMARY KEY, nombreAsignatura VARCHAR(30) NOT NULL, idCiclo INTEGER NOT NULL);");
                 db.execSQL("CREATE TABLE ciclo(idCiclo Integer NOT NULL PRIMARY KEY, numCiclo Integer NOT NULL, anio Integer NOT NULL);");
                 db.execSQL("CREATE TABLE asignacionAsignatura(idAsignacionAsignatura INTEGER NOT NULL PRIMARY KEY, codLaboratorio VARCHAR(10) NOT NULL, codigoAsignatura VARCHAR(10) NOT NULL);");
-                //dia, hora
-                db.execSQL("CREATE TABLE reservacion(idReservacion VARCHAR(3) NOT NULL PRIMARY KEY, codLaboratorio VARCHAR(6) NOT NULL, idProfesor VARCHAR(10) NOT NULL, idHora VARCHAR(10),idDia VARCHAR(10));");
+                db.execSQL("CREATE TABLE reservacion(idReservacion VARCHAR(3) NOT NULL PRIMARY KEY, codLaboratorio VARCHAR(10) NOT NULL, idProfesor VARCHAR(20) NOT NULL, idHora VARCHAR(15),idDia VARCHAR(10));");
                 db.execSQL("CREATE TABLE tipoCarga(idTipoCarga VARCHAR(3) NOT NULL PRIMARY KEY, nombreTipoCarga VARCHAR(30) NOT NULL);");
-                //idTipoCarga VARCHAR(3-10)
-                db.execSQL("CREATE TABLE carga(idCarga VARCHAR(3) NOT NULL PRIMARY KEY, idTipoCarga VARCHAR(10) NOT NULL, codAsignatura VARCHAR(10) NOT NULL, numGrupo INTEGER);");
-                //idprofresro idProfesor
-                db.execSQL("CREATE TABLE profesor(idprofesor VARCHAR(10) NOT NULL PRIMARY KEY, nombreProfesor VARCHAR(30) NOT NULL,idUsuario VARCHAR(10) NOT NULL,idAsignacionCarga INTEGER NOT NULL);");
+                db.execSQL("CREATE TABLE carga(idCarga VARCHAR(3) NOT NULL PRIMARY KEY, idTipoCarga VARCHAR(20) NOT NULL, codAsignatura VARCHAR(10) NOT NULL, numGrupo INTEGER);");
+                db.execSQL("CREATE TABLE profesor(idProfesor VARCHAR(10) NOT NULL PRIMARY KEY, nombreProfesor VARCHAR(30) NOT NULL,idUsuario INTEGER NOT NULL,idAsignacionCarga INTEGER NOT NULL);");
                 db.execSQL("CREATE TABLE asignacionCarga(idAsignacionCarga INTEGER NOT NULL PRIMARY KEY, codigoAsignatura VARCHAR(10) NOT NULL, idCiclo INTEGER NOT NULL);");
-                //Quitar codLaboratorio
-                db.execSQL("CREATE TABLE tipoComputo(idTipoComputo INTEGER NOT NULL PRIMARY KEY, codLaboratorio VARCHAR(10) NOT NULL, nombreTipo VARCHAR(12) NOT NULL,especificacionTecnica VARCHAR(30) NOT NULL);");
-
+                db.execSQL("CREATE TABLE tipoComputo(idTipoComputo INTEGER NOT NULL PRIMARY KEY, nombreTipo VARCHAR(30) NOT NULL,especificacionTecnica VARCHAR(70) NOT NULL);");
                 db.execSQL("CREATE TABLE usuario(idUsuario INTEGER NOT NULL PRIMARY KEY, contrasena VARCHAR(8) NOT NULL, usuario VARCHAR(10) NOT NULL,tipoUsuario INTEGER NOT NULL );");
                 db.execSQL("CREATE TABLE accesoUsuario(tipoUsuario INTEGER NOT NULL PRIMARY KEY, descripcion VARCHAR(30) NOT NULL);");
                 db.execSQL("CREATE TABLE horario(idHorario INTEGER NOT NULL PRIMARY KEY, horaInicio VARCHAR(8) NOT NULL, horaFin VARCHAR(8) NOT NULL);");
                 db.execSQL("CREATE TABLE dia(idDia INTEGER NOT NULL PRIMARY KEY, nomDia VARCHAR(9) NOT NULL);");
                 db.execSQL("CREATE TABLE laboratorio(codLaboratorio VARCHAR(6) NOT NULL PRIMARY KEY, idTipoComputo INTEGER NOT NULL, plantaLaboratorio INTEGER NOT NULL, cantidadEquiposLaboratorio INTEGER NOT NULL);");
+
+                /*
+                db.execSQL("CREATE TRIGGER Fk1 "+
+                "BEFORE INSERT ON reservacion FOR EACH ROW " +
+                "BEGIN " +
+                "SELECT CASE WHEN ((SELECT idReservacion FROM reservacion WHERE NEW.idDia = 4 AND NEW.idHorario<5) IS NULL) THEN RAISE(ABORT, 'No se puede reservar los jueves por la ma;ana') " +
+                "END; "+
+                "END; ");
+                
+
+
+
+                db.execSQL("CREATE TRIGGER Fk2 " +
+                        "BEFORE INSERT ON nota FOR EACH ROW " +
+                        "BEGIN " +
+                        "SELECT CASE WHEN ((SELECT codmateria FROM materia WHERE codmateria = NEW.codmateria) IS NULL) THEN RAISE(ABORT, 'No existe materia') " +
+                        "END; "+
+                        "END;");
+
+                db.execSQL("CREATE TRIGGER nota1 " +
+                        "AFTER UPDATE OF notafinal ON nota " +
+                        "FOR EACH ROW WHEN new.notafinal>=6 AND old.notafinal<6 " +
+                        "BEGIN " +
+                        "UPDATE alumno SET matganadas=matganadas+1 " +
+                        "WHERE alumno.carnet=new.carnet ; " +
+                        "END; ");
+                db.execSQL("CREATE TRIGGER nota2 " +
+                        "AFTER UPDATE OF notafinal ON nota " +
+                        "FOR EACH ROW WHEN new.notafinal<6 AND old.notafinal>=6 " +
+                        "BEGIN " +
+                        "UPDATE alumno SET matganadas=matganadas-1 WHERE alumno.carnet=new.carnet; " +
+                        "END; ");
+*/
+
 
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -204,7 +233,6 @@ public class ControlBDReservacionLab {
 
 
 
-
     //Actualizar Hora
     public String actualizar(Horario horario){
         return null;
@@ -222,8 +250,6 @@ public class ControlBDReservacionLab {
             return "Registro con id Dia "+dia.getIdDia()+ "no existe";
         }
     }
-
-    //Actualizar Tipo Computo
 
 
     //Actualizar laboratorio
@@ -267,25 +293,18 @@ public class ControlBDReservacionLab {
         return regAfectados;
     }
 
-    //Eliminar Tipo Computo
-
 
     //Eliminar laboratorio
     public String eliminar(Laboratorio laboratorio){
         String regAfectados="filas afectadas= ";
         int contador=0;
-        String where="codLaboratorio='"+laboratorio.getCodLaboratorio()+"'";
-        where=where+" AND idTipoComputo = "+laboratorio.getIdTipoComputo();
-        where=where+" AND plantaLaboratorio="+laboratorio.getPlantaLaboratorio();
-        where=where+" AND cantidadEquiposLaboratorio="+laboratorio.getCantidadEquiposLaboratorio();
-        contador+=db.delete("nota", where, null);
+        if(verificarIntegridad(laboratorio, 27)){
+            contador+=db.delete("reservacion","codLaboratorio='"+laboratorio.getCodLaboratorio()+"'",null);
+        }
+        contador+=db.delete("laboratorio","codLaboratorio='"+laboratorio.getCodLaboratorio()+"'",null);
         regAfectados+=contador;
         return regAfectados;
     }
-
-
-
-
 
 
     public Horario consultarHorario(Integer idHorario){
@@ -330,8 +349,6 @@ public class ControlBDReservacionLab {
             return null;
         }
     }
-    //codLaboratorio VARCHAR(6), idTipoComputo INTEGER, plantaLaboratorio INTEGER, cantidadEquiposLaboratorio INTEGER
-
 
     ///INSERTAR ASIGNATURA
     public String insertar(Asignatura asignatura) {
@@ -416,7 +433,7 @@ public class ControlBDReservacionLab {
         String regInsertados = "Registro Insertado Nº=";
         long contador = 0;
         //Verificar que no exista usuario
-        if (verificarIntegridad(usuario, 6)) {
+        if (verificarIntegridad(usuario, 19)) {
             regInsertados = "Error al Insertar el registros, Registro Duplicado. Verificar inserción";
 
         } else {
@@ -439,7 +456,7 @@ public class ControlBDReservacionLab {
 
 
     public String actualizar(Usuario usuario){
-        if(verificarIntegridad(usuario,6)){
+        if(verificarIntegridad(usuario,19)){
             String[] id={String.valueOf(usuario.getIdUsuario())};
             ContentValues us = new ContentValues();
             //us.put("idUsuario", usuario.getIdUsuario());
@@ -456,11 +473,12 @@ public class ControlBDReservacionLab {
 
 
     // Eliminar Usuario
+    // Eliminar Usuario
     public String eliminar(Usuario usuario){
 
         String usuAfectados="filas afectadas= ";
         int contador=0;
-        if(verificarIntegridad(usuario, 6)) {
+         if(verificarIntegridad(usuario, 6)) {
             String where="idUsuario='"+usuario.getIdUsuario()+"'";
             contador+=db.delete("usuario", where,null);
             usuAfectados+=contador;
@@ -768,7 +786,6 @@ public class ControlBDReservacionLab {
 
         ContentValues tipo = new ContentValues();
         tipo.put("idTipoComputo", tipoComputo.getIdTipoComputo());
-        tipo.put("codLaboratorio", tipoComputo.getCodLaboratorio());
         tipo.put("nombreTipo", tipoComputo.getNombreTipo());
         tipo.put("especificacionTecnica",tipoComputo.getEspecificacionTecnica());
 
@@ -787,7 +804,7 @@ public class ControlBDReservacionLab {
 
     //Actualizar reservacion
     public String actualizar(Reservacion reservacion){
-        if(verificarIntegridad(reservacion,7)){
+        if(verificarIntegridad(reservacion,26)){
             String[] id={reservacion.getIdReservacion()};
             ContentValues cv = new ContentValues();
             cv.put("idReservacion", reservacion.getIdReservacion());
@@ -834,12 +851,6 @@ public class ControlBDReservacionLab {
             return "Tipo de Carga No"+ carga.getIdCarga()+ "No existe";
         }
     }
-
-
-
-
-
-
 
 
 
@@ -897,11 +908,10 @@ public String insertar(AsignacionCarga asignacionCarga) {
     }
     //ACTUALIZAR TIPO COMPUTO
     public String actualizar(TipoComputo tipoComputo){
-        if(verificarIntegridad(tipoComputo,12)){
+        if(verificarIntegridad(tipoComputo,14)){
             String[] id={String.valueOf(tipoComputo.getIdTipoComputo())};
             ContentValues cv = new ContentValues();
 
-            cv.put("codLaboratorio", tipoComputo.getCodLaboratorio());
             cv.put("nombreTipo", tipoComputo.getNombreTipo());
             cv.put("especificacionTecnica", tipoComputo.getEspecificacionTecnica());
             db.update("tipoComputo", cv, "idTipoComputo =? ", id);
@@ -918,7 +928,7 @@ public String insertar(AsignacionCarga asignacionCarga) {
 
         String regAfectados="filas afectadas= "; int contador=0;
         // 2 Verificar registro que exista
-        if(verificarIntegridad(reservacion, 17)) { String where="idReservacion='"+reservacion.getIdReservacion()+"'";
+        if(verificarIntegridad(reservacion, 26)) { String where="idReservacion='"+reservacion.getIdReservacion()+"'";
             contador+=db.delete("reservacion", where, null);
             regAfectados+=contador;
             return regAfectados;
@@ -983,11 +993,6 @@ public String insertar(AsignacionCarga asignacionCarga) {
     public String eliminar(TipoComputo tipoComputo){
         String regAfectados="Filas afectadas=";
         int contador=0;
-
-        if(verificarIntegridad(tipoComputo,2)){  //VERIFICAR RELACION
-            contador+=db.delete("Laboratorio","codLaboratorio='"+tipoComputo.getCodLaboratorio()+"'", null);
-
-        }
         contador+=db.delete("tipoComputo","idTipoComputo='"+tipoComputo.getIdTipoComputo()+"'",null);
         regAfectados+=contador;
         return regAfectados;
@@ -1042,9 +1047,8 @@ public String insertar(AsignacionCarga asignacionCarga) {
         if(cursor.moveToFirst()){
             TipoComputo tipoComputo = new TipoComputo();
             tipoComputo.setIdTipoComputo(cursor.getInt(0));
-            tipoComputo.setCodLaboratorio(cursor.getString(1));
-            tipoComputo.setNombreTipo(cursor.getString(2));
-            tipoComputo.setEspecificacionTecnica(cursor.getString(3));
+            tipoComputo.setNombreTipo(cursor.getString(1));
+            tipoComputo.setEspecificacionTecnica(cursor.getString(2));
             return tipoComputo;
         } else{
             return null;
@@ -1187,20 +1191,40 @@ public String insertar(AsignacionCarga asignacionCarga) {
                 Cursor c2 = db.query("asignacion_asignatura", null, "idAsignacionAsignatura = ?", id, null, null, null);
                 if(c2.moveToFirst()){ //Se encontro Asignatura
                     return true;
-                }
+                }"codLaboratorio",  "idProfesor","idHora","idDia"
                 return false;
             }
             */
+
+
+            case 6: { //Elimina
+                Usuario usuario = (Usuario)dato;
+                String[] idm = {String.valueOf(usuario.getIdUsuario())};
+                abrir();
+                Cursor cm = db.query("usuario", null, "idUsuario = ?", idm, null,
+                        null, null);
+                if(cm.moveToFirst()){
+                    //Se encontro Materia
+
+                    return true;
+                }
+                else return false;
+            }
 
             case 7:{
                 //Verificar que exista reservacion
                 Reservacion reservacion2 = (Reservacion) dato;
                 String[] id = {reservacion2.getIdReservacion()};
-                //String[] id2 = {(reservacion2.getIdHorario())}; //Verifica que exista horario
+                String[] id2 = {(reservacion2.getCodLaboratorio())};
+                String[] id3 = {(reservacion2.getIdHora())};
+                String[] id4 = {(reservacion2.getIdDia())}; //Verifica que exista horario
                 abrir();
                 //Cursor c2 = db.query("reservacion", null, "idReservacion = ? && idHorario = ?", id, null, null, null);
                 Cursor c2 = db.query("reservacion", null, "idReservacion = ? ", id, null, null, null);
-                if(c2.moveToFirst()){ //Se encontro reservacion
+                Cursor c3 = db.query("reservacion", null, "codLaboratorio=? ", id2, null, null, null);
+                Cursor c4 = db.query("reservacion", null, " idHora=?", id3, null, null, null);
+                Cursor c5 = db.query("reservacion", null, "idDia=?", id4, null, null, null);
+                if(c2.moveToFirst() || (c3.moveToFirst()  && c4.moveToFirst()  && c5.moveToFirst())){ //Se encontro reservacion
                     return true; }
                 return false;
             }
@@ -1291,27 +1315,7 @@ public String insertar(AsignacionCarga asignacionCarga) {
                 }
                 return false;
             }
-                /*case 15: {//VERIFICAR QUE AL INSERTAR TIPO COMPUTO exista el codigo de Laboratorio
-                    TipoComputo tipoComputo = (TipoComputo) dato;
-                    String[] id1 = {tipoComputo.getCodLaboratorio()};
-                    abrir();
-                    Cursor cursor1 = db.query("laboratorio", null, "codLaboratorio =?", id1, null, null, null);
-                    if(cursor1.moveToFirst()) {
-                        return true;
-                    }
-                    return false;
-                }
-                case 16:{
-                    //verificar que al modificar el tipo computo existan el codigo de laboratorio
-                    TipoComputo tipoComputo1 = (TipoComputo) dato;
-                    String[]  ids = {tipoComputo1.getCodLaboratorio()};
-                    abrir();
-                    Cursor c = db.query("tipoComputo",null, "codLaboratorio = ? ",ids, null, null, null);
-                    if(c.moveToFirst()) {
-                        return true;
-                    }
-                    return false;
-                }*/
+
             case 17:{
                 //Verificar que exista Tipo de Carga
                 TipoCarga tipoCarga2 = (TipoCarga) dato;
@@ -1368,17 +1372,16 @@ public String insertar(AsignacionCarga asignacionCarga) {
             }
             case 23:
             {
-                //Verificar que al Actualizar  dia exista
+                //Verificar que al Actualizar  idTipoComputo exista
                 Laboratorio laboratorio2=(Laboratorio)dato;
-                String[] ids={String.valueOf(laboratorio2.getIdTipoComputo()),laboratorio2.getCodLaboratorio()};
+                String[] ids={laboratorio2.getCodLaboratorio(), String.valueOf(laboratorio2.getIdTipoComputo())};
                 abrir();
-                Cursor c=db.query("laboratorio",null,"idTipoComputo = ? AND codLaboratorio",ids,null,null,null);
+                Cursor c=db.query("laboratorio",null,"codLaboratorio=? AND idTipoComputo = ? ",ids,null,null,null);
                 if(c.moveToFirst()){
                     return true;
                 }
                 return false;
             }
-
             case 24:
             {        //Dia   Reservacion
                 Dia dia =(Dia)dato;
@@ -1401,11 +1404,30 @@ public String insertar(AsignacionCarga asignacionCarga) {
                 }
                 return true;
             }
+            case 26:{
+                //Verificar que exista reservacion para actualizar y eliminar
+                Reservacion reservacion2 = (Reservacion) dato;
+                String[] id = {reservacion2.getIdReservacion()};
+                //Verifica que exista horario
+                abrir();
+                //Cursor c2 = db.query("reservacion", null, "idReservacion = ? && idHorario = ?", id, null, null, null);
+                Cursor c2 = db.query("reservacion", null, "idReservacion = ? ", id, null, null, null);
 
+                if(c2.moveToFirst()){ //Se encontro reservacion
+                    return true; }
+                return false;
+            }
+            case 27:
+            {
+                Laboratorio laboratorio=(Laboratorio)dato;
+                Cursor labo=db.query(true,"reservacion",new String[]{"codLaboratorio"}, "codLaboratorio='"+laboratorio.getCodLaboratorio()+"'",null,null,null,null,null);
+                if(labo.moveToFirst())
+                return true;
+                else
+                    return false;
+            }
 
-
-
-            default:
+             default:
                 return false; }
 
     }
@@ -1432,17 +1454,48 @@ public String insertar(AsignacionCarga asignacionCarga) {
         final Integer[] VCnumCico={01,02};
         final Integer[] VCanio={2017, 2018};
 
+        //Horario
         final  Integer[] VHidHorario={1,2,3,4,5,6,7,8};
         final  String[] VHhoraInicio={"6:20 AM","8:05 AM","9:50 AM","11:35 AM","1:20 PM","3:05 PM","4:50 PM","6:35 PM"};
         final  String[] VHhoraFin={"8:00 AM","9:45 AM","11:30 AM","1:15 PM","3:00 PM","4:45 PM","6:30 PM","8:15 PM"};
 
+        //Dia
         final  Integer[] VDidDia={1,2,3,4,5};
         final  String[] VDnomDia={"lunes","martes","miercoles","jueves","viernes"};
 
-        final String[] VLcodLaboratorio={"LCOM1","LCOM2","LCOM3","LCOM4"};
+        //Laboratorio
+        final String[] VLcodLaboratorio={"LCOMP1","LCOMP2","LCOMP3","LCOMP4"};
         final Integer[] VLidTipoComputo={1,2,3,4};
         final Integer[] VLplantaLaboratorio={1,1,1,2};
         final Integer[] VLcantidadEquiposLaboratorio={25,31,16,21};
+
+        //Variables para TipoComputo
+        final Integer[] VTCidTipoComputo = {1,2,3,4};
+        final String [] VTCnombreTipo ={"Tipo1","Tipo2","Tipo3","Tipo4"};
+        final String [] VTCespecificacionTecnica ={"12 ram,disco de 500 GB, Sistemas Operativos Windows y Ubunto","12 ram,disco de 500 GB, Sistemas Operativos Windows y Ubunto","12 ram,disco de 500 GB, Sistemas Operativos Windows y Ubunto","12 ram,disco de 500 GB, Sistemas Operativos Windows y Ubunto"};
+
+        //Variables para Profesor
+        final String [] VPidProfesor ={"prof1","prof2","prof3","prof4"};
+        final String [] VPnombreProfesor={"Karla","Melissa","Jonathan","Carlos"};
+        final Integer [] VPidUsuario ={1,2,1,2};
+        final Integer [] VPidAsignacionCarga ={1,2,3,4};
+
+        //Variables para AsignacionCarga
+        final Integer [] VACidAsignacionCarga ={1,2,3,4};
+        final String [] VACcodigoAsignatura ={"PRN115", "HDP115", "COS115", "MEP115"};
+        final Integer [] VACidCiclo={1,2,3,4};
+
+        //VAriables para tipoCarga
+        final String [] VtidTipoCarga={"1", "2", "3", "4"};
+        final String [] VtnombreTipoCarga={"Teorico", "Laboratorio", "Parcial", "Libre"};
+
+        //Variables para Carga
+        final String [] VCidCarga ={"1", "2", "3", "4"};
+        final String [] VCidTipoCarga ={"Laboratorio", "Teorico", "Libre", "Parcial"};
+        final String [] VCcodigoAsignatura ={"PRN115", "HDP115", "COS115", "MEP115"};
+        final Integer [] VCNum={25,27,30,24};
+
+
 
         abrir();
         db.execSQL("DELETE FROM asignatura;");
@@ -1452,6 +1505,12 @@ public String insertar(AsignacionCarga asignacionCarga) {
         db.execSQL("DELETE FROM horario");
         db.execSQL("DELETE FROM dia");
         db.execSQL("DELETE FROM laboratorio;");
+
+        db.execSQL("DELETE FROM profesor;");
+        db.execSQL("DELETE FROM asignacionCarga;");
+        db.execSQL("DELETE FROM tipoComputo;");
+        db.execSQL("DELETE FROM tipoCarga;");
+        db.execSQL("DELETE FROM carga;");
 
 
         Asignatura asignatura = new Asignatura();
@@ -1471,7 +1530,7 @@ public String insertar(AsignacionCarga asignacionCarga) {
         }
 
         Usuario us = new Usuario();
-        for(int i=0; i<1; i++){
+        for(int i=0; i<2; i++){
             us.setIdUsuario(VIdUsuario[i]);
             us.setUsuario(VUsuario[i]);
             us.setContrasenia(VContrasenia[i]);
@@ -1480,7 +1539,7 @@ public String insertar(AsignacionCarga asignacionCarga) {
         }
 
         Horario horario=new Horario();
-        for(int i=0;i<4;i++){
+        for(int i=0;i<8;i++){
             horario.setIdHorario(VHidHorario[i]);
             horario.setHoraInicio(VHhoraInicio[i]);
             horario.setHoraFin(VHhoraFin[i]);
@@ -1494,6 +1553,14 @@ public String insertar(AsignacionCarga asignacionCarga) {
             insertar(dia);
         }
 
+        TipoComputo tipoComputo = new TipoComputo();
+        for(int i=0; i<4; i++){
+            tipoComputo.setIdTipoComputo(VTCidTipoComputo[i]);
+            tipoComputo.setNombreTipo(VTCnombreTipo[i]);
+            tipoComputo.setEspecificacionTecnica(VTCespecificacionTecnica[i]);
+            insertar(tipoComputo);
+        }
+
         Laboratorio laboratorio=new Laboratorio();
         for(int i=0;i<4;i++){
             laboratorio.setCodLaboratorio(VLcodLaboratorio[i]);
@@ -1503,10 +1570,37 @@ public String insertar(AsignacionCarga asignacionCarga) {
             insertar(laboratorio);
         }
 
+        Profesor profesor = new Profesor();
+        for(int i=0; i<4; i++){
+            profesor.setIdProfesor(VPidProfesor[i]);
+            profesor.setNombreProfesor(VPnombreProfesor[i]);
+            profesor.setIdUsuario(VPidUsuario[i]);
+            profesor.setIdAsignacionCarga(VPidAsignacionCarga[i]);
+            insertar(profesor);
+        }
 
+        AsignacionCarga asignacionCarga = new AsignacionCarga();
+        for(int i=0; i<4; i++){
+            asignacionCarga.setIdAsignacionCarga(VACidAsignacionCarga[i]);
+            asignacionCarga.setCodigoAsignatura(VACcodigoAsignatura [i]);
+            asignacionCarga.setIdCiclo(VACidCiclo[i]);
+            insertar(asignacionCarga);
+        }
+        TipoCarga tipoCarga = new TipoCarga();
+        for(int i=0; i<4; i++){
+            tipoCarga.setIdTipoCarga(VtidTipoCarga[i]);
+            tipoCarga.setNombreTipoCarga(VtnombreTipoCarga [i]);
+            insertar(tipoCarga);
+        }
 
-
-
+        Carga carga = new Carga();
+        for(int i=0; i<4; i++){
+            carga.setIdCarga(VCidCarga[i]);
+            carga.setIdTipoCarga(VCidTipoCarga [i]);
+            carga.setCodAsignatura(VCcodigoAsignatura [i]);
+            carga.setNumGrupo(VCNum [i]);
+            insertar(carga);
+        }
 
 
         cerrar();
@@ -1514,11 +1608,3 @@ public String insertar(AsignacionCarga asignacionCarga) {
 
     }
 }
-
-
-
-
-
-
-
-

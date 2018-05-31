@@ -31,7 +31,10 @@ public class LaboratorioConsultarActivity extends AppCompatActivity {
         if(laboratorio==null){
             Toast.makeText(this,"Laboratorio no registrado",Toast.LENGTH_LONG).show();
         }else{
-            editPlantaLaboratorio.setText(String.valueOf(laboratorio.getCantidadEquiposLaboratorio()));
+            editIdTipoComputo.setText(String.valueOf(laboratorio.getIdTipoComputo()));
+            editPlantaLaboratorio.setText(String.valueOf(laboratorio.getPlantaLaboratorio()));
+            editCantidadEquiposLaboratorio.setText(String.valueOf(laboratorio.getCantidadEquiposLaboratorio()));
+
         }
     }
     public void limpiarTexto(View v) {

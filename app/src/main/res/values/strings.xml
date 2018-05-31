@@ -31,6 +31,7 @@
     <string name="consultar">Consultar</string>
     <string name="opciones">Opciones</string>
     <string name="insertar">Insertar</string>
+    <string name="llenar">llenar</string>
     --CICLO--
 
     --Asignatura--
@@ -179,9 +180,6 @@
     <string name="codLaboratorio">Codigo Laboratorio</string>
     <string name="plantalaboratorio">Ubicado en Planta</string>
     <string name="cantidadequiposlaboratorio">Cantidad de equipos</string>
-
-
-
 
 
 </resources>

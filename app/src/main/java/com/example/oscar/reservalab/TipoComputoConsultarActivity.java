@@ -10,7 +10,6 @@ import android.widget.Toast;
 public class TipoComputoConsultarActivity extends Activity {
     ControlBDReservacionLab helper;
     EditText editIdTipoComputo;
-    EditText editCodLaboratorio;
     EditText editNombreTipo;
     EditText editEspecificacionTecnica;
     /** Called when the activity is first created. */
@@ -19,8 +18,7 @@ public class TipoComputoConsultarActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tipo_computo_consultar);
         helper = new ControlBDReservacionLab(this);
-        editIdTipoComputo = (EditText) findViewById(R.id.editIdAsignacionCarga);
-        editCodLaboratorio = (EditText) findViewById(R.id.editCodigoAsignatura);
+        editIdTipoComputo = (EditText) findViewById(R.id.editIdTipoComputo);
         editNombreTipo = (EditText) findViewById(R.id.editNombreTipo);
         editEspecificacionTecnica = (EditText) findViewById(R.id.editEspecificacionTecnica);
     }
@@ -33,7 +31,6 @@ public class TipoComputoConsultarActivity extends Activity {
                     editIdTipoComputo.getText().toString() +
                     " no encontrado", Toast.LENGTH_LONG).show();
         else{
-            editCodLaboratorio.setText(tipoComputo.getCodLaboratorio());
             editNombreTipo.setText(tipoComputo.getNombreTipo());
             editEspecificacionTecnica.setText(tipoComputo.getEspecificacionTecnica());
 
@@ -41,7 +38,6 @@ public class TipoComputoConsultarActivity extends Activity {
     }
     public void limpiarTexto(View v){
         editIdTipoComputo.setText("");
-        editCodLaboratorio.setText("");
         editNombreTipo.setText("");
         editEspecificacionTecnica.setText("");
     }

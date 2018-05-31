@@ -86,9 +86,9 @@ public class CargaInsertarActivity extends AppCompatActivity {
 
     private List obtenerAsignatura() {
 
-        String tabla = "tipoCarga";
+        String tabla = "asignatura";
         helper.abrir();
-        TipoCarga asignatura = null;//CAMBIAR A LA ENTIDAD CORRESPONDIENTE
+        Asignatura asignatura = null;//CAMBIAR A LA ENTIDAD CORRESPONDIENTE
 
         try {
             lAsig = new ArrayList<>();
@@ -96,10 +96,10 @@ public class CargaInsertarActivity extends AppCompatActivity {
             Cursor cursor = helper.db.rawQuery("SELECT * FROM " + tabla, null);
 
             while (cursor.moveToNext()) {
-                asignatura= new TipoCarga();//CAMBIAR A LA ENTIDAD CORRESPONDIENTE
-                asignatura.setIdTipoCarga(cursor.getString(0));
-                asignatura.setNombreTipoCarga(cursor.getString(1));
-                lAsig.add(cursor.getString(1));
+                asignatura= new Asignatura();//CAMBIAR A LA ENTIDAD CORRESPONDIENTE
+                asignatura.setCodigoAsignatura(cursor.getString(0));
+                asignatura.setNombreAsignatura(cursor.getString(1));
+                lAsig.add(cursor.getString(0));
 
             }
 
