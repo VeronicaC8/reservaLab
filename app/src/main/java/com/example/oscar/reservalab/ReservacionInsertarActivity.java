@@ -103,32 +103,6 @@ public class ReservacionInsertarActivity extends Activity{
         return (lProf);
     }
 
-    private List obtenerHorario() {
-
-        String tabla = "horario";
-        helper.abrir();
-        Horario horario = null;//CAMBIAR A LA ENTIDAD CORRESPONDIENTE
-
-        try {
-            lHorario = new ArrayList<>();
-
-            Cursor cursor = helper.db.rawQuery("SELECT * FROM " + tabla, null);
-
-            while (cursor.moveToNext()) {
-                horario = new Horario();//CAMBIAR A LA ENTIDAD CORRESPONDIENTE
-                horario.setHoraInicio(cursor.getString(1));
-                horario.setHoraFin(cursor.getString(2));
-                lHorario.add(cursor.getString(1)+"-"+ cursor.getString(2));
-
-
-            }
-
-
-        } catch (Exception ex) {
-            Toast.makeText(getBaseContext(), ex.toString(), Toast.LENGTH_SHORT).show();
-        }
-        return (lHorario);
-    }
 
     private List obtenerLaboratorio() {
 
@@ -182,6 +156,33 @@ public class ReservacionInsertarActivity extends Activity{
         return (lDia);
     }
 
+    private List obtenerHorario() {
+
+        String tabla = "horario";
+        helper.abrir();
+        Horario horario = null;//CAMBIAR A LA ENTIDAD CORRESPONDIENTE
+
+        try {
+            lHorario = new ArrayList<>();
+
+            Cursor cursor = helper.db.rawQuery("SELECT * FROM " + tabla, null);
+
+            while (cursor.moveToNext()) {
+                horario = new Horario();//CAMBIAR A LA ENTIDAD CORRESPONDIENTE
+                horario.setHoraInicio(cursor.getString(1));
+                horario.setHoraFin(cursor.getString(2));
+                lHorario.add(cursor.getString(1)+"-"+ cursor.getString(2));
+
+
+            }
+
+
+        } catch (Exception ex) {
+            Toast.makeText(getBaseContext(), ex.toString(), Toast.LENGTH_SHORT).show();
+        }
+        return (lHorario);
+    }
+
     public void insertarReservacion(View v) {
 
 
@@ -190,6 +191,7 @@ public class ReservacionInsertarActivity extends Activity{
         String idProfesor=(String) cProfesor.getSelectedItem().toString();
         String idHora=(String) cHora.getSelectedItem().toString();
         String idDia=(String) cDia.getSelectedItem().toString();
+
         String regInsertados;
 
         Reservacion reserva=new Reservacion();

@@ -76,7 +76,7 @@ public class ControlBDReservacionLab {
                 db.execSQL("CREATE TABLE asignacionAsignatura(idAsignacionAsignatura INTEGER NOT NULL PRIMARY KEY, codLaboratorio VARCHAR(10) NOT NULL, codigoAsignatura VARCHAR(10) NOT NULL);");
                 db.execSQL("CREATE TABLE reservacion(idReservacion VARCHAR(3) NOT NULL PRIMARY KEY, codLaboratorio VARCHAR(10) NOT NULL, idProfesor VARCHAR(20) NOT NULL, idHora VARCHAR(15),idDia VARCHAR(10));");
                 db.execSQL("CREATE TABLE tipoCarga(idTipoCarga VARCHAR(3) NOT NULL PRIMARY KEY, nombreTipoCarga VARCHAR(30) NOT NULL);");
-                db.execSQL("CREATE TABLE carga(idCarga VARCHAR(3) NOT NULL PRIMARY KEY, idTipoCarga VARCHAR(10) NOT NULL, codAsignatura VARCHAR(10) NOT NULL, numGrupo INTEGER);");
+                db.execSQL("CREATE TABLE carga(idCarga VARCHAR(3) NOT NULL PRIMARY KEY, idTipoCarga VARCHAR(20) NOT NULL, codAsignatura VARCHAR(10) NOT NULL, numGrupo INTEGER);");
                 db.execSQL("CREATE TABLE profesor(idProfesor VARCHAR(10) NOT NULL PRIMARY KEY, nombreProfesor VARCHAR(30) NOT NULL,idUsuario INTEGER NOT NULL,idAsignacionCarga INTEGER NOT NULL);");
                 db.execSQL("CREATE TABLE asignacionCarga(idAsignacionCarga INTEGER NOT NULL PRIMARY KEY, codigoAsignatura VARCHAR(10) NOT NULL, idCiclo INTEGER NOT NULL);");
                 db.execSQL("CREATE TABLE tipoComputo(idTipoComputo INTEGER NOT NULL PRIMARY KEY, nombreTipo VARCHAR(30) NOT NULL,especificacionTecnica VARCHAR(70) NOT NULL);");
@@ -1432,9 +1432,7 @@ public String insertar(AsignacionCarga asignacionCarga) {
                     return false;
             }
 
-
-
-            default:
+             default:
                 return false; }
 
     }
@@ -1471,7 +1469,7 @@ public String insertar(AsignacionCarga asignacionCarga) {
         final  String[] VDnomDia={"lunes","martes","miercoles","jueves","viernes"};
 
         //Laboratorio
-        final String[] VLcodLaboratorio={"LCOM1","LCOM2","LCOM3","LCOM4"};
+        final String[] VLcodLaboratorio={"LCOMP1","LCOMP2","LCOMP3","LCOMP4"};
         final Integer[] VLidTipoComputo={1,2,3,4};
         final Integer[] VLplantaLaboratorio={1,1,1,2};
         final Integer[] VLcantidadEquiposLaboratorio={25,31,16,21};
@@ -1492,6 +1490,17 @@ public String insertar(AsignacionCarga asignacionCarga) {
         final String [] VACcodigoAsignatura ={"PRN115", "HDP115", "COS115", "MEP115"};
         final Integer [] VACidCiclo={1,2,3,4};
 
+        //VAriables para tipoCarga
+        final String [] VtidTipoCarga={"1", "2", "3", "4"};
+        final String [] VtnombreTipoCarga={"Teorico", "Laboratorio", "Parcial", "Libre"};
+
+        //Variables para Carga
+        final String [] VCidCarga ={"1", "2", "3", "4"};
+        final String [] VCidTipoCarga ={"Laboratorio", "Teorico", "Libre", "Parcial"};
+        final String [] VCcodigoAsignatura ={"PRN115", "HDP115", "COS115", "MEP115"};
+        final Integer [] VCNum={25,27,30,24};
+
+
 
         abrir();
         db.execSQL("DELETE FROM asignatura;");
@@ -1505,6 +1514,8 @@ public String insertar(AsignacionCarga asignacionCarga) {
         db.execSQL("DELETE FROM profesor;");
         db.execSQL("DELETE FROM asignacionCarga;");
         db.execSQL("DELETE FROM tipoComputo;");
+        db.execSQL("DELETE FROM tipoCarga;");
+        db.execSQL("DELETE FROM carga;");
 
 
         Asignatura asignatura = new Asignatura();
@@ -1580,7 +1591,21 @@ public String insertar(AsignacionCarga asignacionCarga) {
             asignacionCarga.setIdCiclo(VACidCiclo[i]);
             insertar(asignacionCarga);
         }
+        TipoCarga tipoCarga = new TipoCarga();
+        for(int i=0; i<4; i++){
+            tipoCarga.setIdTipoCarga(VtidTipoCarga[i]);
+            tipoCarga.setNombreTipoCarga(VtnombreTipoCarga [i]);
+            insertar(tipoCarga);
+        }
 
+        Carga carga = new Carga();
+        for(int i=0; i<4; i++){
+            carga.setIdCarga(VCidCarga[i]);
+            carga.setIdTipoCarga(VCidTipoCarga [i]);
+            carga.setCodAsignatura(VCcodigoAsignatura [i]);
+            carga.setNumGrupo(VCNum [i]);
+            insertar(carga);
+        }
 
 
         cerrar();
